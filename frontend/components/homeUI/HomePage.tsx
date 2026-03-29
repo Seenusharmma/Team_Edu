@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Navbar from "@/components/common/Navbar";
 import { theme } from "@/lib/theme";
 
 const HomePage = () => {
@@ -13,50 +14,51 @@ const HomePage = () => {
       }}
     >
       <section className="relative isolate">
+        <Navbar />
+
         <div className="absolute inset-0 -z-10">
           <div
             className="absolute inset-0"
-            style={{ backgroundImage: theme.gradients.heroBackground }}
+            style={{
+              backgroundImage:
+                "linear-gradient(rgba(246, 239, 230, 0.72), rgba(246, 239, 230, 0.82)), url('/background.jpg')",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "cover",
+            }}
           />
           <div
-            className="absolute -left-24 top-16 h-72 w-72 rounded-full blur-3xl"
+            className="absolute -left-24 top-10 h-48 w-48 rounded-full blur-3xl sm:top-16 sm:h-72 sm:w-72"
             style={{ backgroundColor: theme.colors.accentSoft }}
           />
           <div
-            className="absolute bottom-0 right-0 h-80 w-80 rounded-full blur-3xl"
+            className="absolute bottom-0 right-0 h-56 w-56 rounded-full blur-3xl sm:h-80 sm:w-80"
             style={{ backgroundColor: theme.colors.accentWarm }}
           />
         </div>
 
-        <div className="mx-auto flex min-h-screen w-full max-w-7xl items-center px-6 py-16 sm:px-10 lg:px-12">
-          <div className="grid w-full items-center gap-14 lg:grid-cols-[1.05fr_0.95fr]">
-            <div className="max-w-2xl">
-              <p
-                className="mb-5 text-sm font-semibold uppercase tracking-[0.35em]"
-                style={{ color: theme.colors.accent }}
-              >
-                AI-led learning
-              </p>
-
+        <div className="mx-auto flex min-h-screen w-full max-w-7xl items-center px-4 pb-12 pt-28 sm:px-8 sm:pb-16 sm:pt-32 lg:px-12 lg:pt-36">
+          <div className="grid w-full items-center gap-10 sm:gap-14 lg:grid-cols-[1.05fr_0.95fr]">
+            <div className="mx-auto max-w-2xl text-center lg:mx-0 lg:text-left">
               <h1
-                className="max-w-xl text-5xl leading-[0.95] font-normal tracking-[-0.04em] text-balance sm:text-6xl lg:text-8xl"
+                className="mx-auto max-w-[12ch] text-4xl leading-[0.98] font-normal tracking-[-0.04em] text-balance sm:text-5xl lg:mx-0 lg:max-w-xl lg:text-8xl"
                 style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
               >
-                Build a workforce ready for anything.
+                Learn Faster. Think Smarter. Do Less.
               </h1>
 
               <p
-                className="mt-8 max-w-xl text-lg leading-8 sm:text-xl"
+                className="mx-auto mt-6 max-w-xl text-base leading-7 sm:mt-8 sm:text-lg sm:leading-8 lg:mx-0 lg:text-xl"
                 style={{ color: theme.colors.textSecondary }}
               >
-                Human and AI coaching with practical, outcome-focused learning
-                paths that help teams adapt faster and perform with confidence.
+                AI-powered study system that reduces effort, saves time, and
+                helps you master concepts faster.
               </p>
 
-              <div className="mt-10 flex flex-wrap items-center gap-4">
+              <div className="mt-8 flex flex-col items-stretch gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:items-center lg:justify-start">
                 <button
                   type="button"
-                  className="rounded-full px-8 py-4 text-base font-semibold transition"
+                  className="w-full rounded-full px-8 py-4 text-base font-semibold transition sm:w-auto"
                   style={{
                     backgroundColor: theme.colors.textPrimary,
                     color: theme.colors.white,
@@ -66,15 +68,15 @@ const HomePage = () => {
                 </button>
 
                 <span
-                  className="text-sm font-medium tracking-[0.18em] uppercase"
+                  className="text-center text-xs font-medium tracking-[0.16em] uppercase sm:text-left sm:text-sm sm:tracking-[0.18em]"
                   style={{ color: theme.colors.textMuted }}
                 >
-                  Trusted by modern teams
+                  View How It Works
                 </span>
               </div>
             </div>
 
-            <div className="relative">
+            <div className="relative mx-auto w-full max-w-[40rem]">
               <div
                 className="absolute -left-8 top-10 hidden h-28 w-28 rounded-full border blur-sm lg:block"
                 style={{
@@ -89,7 +91,7 @@ const HomePage = () => {
 
               <div className="relative mx-auto w-full max-w-3xl">
                 <div
-                  className="absolute inset-x-[16.15%] top-[19.35%] bottom-[35.9%] z-0 overflow-hidden rounded-[0.7rem]"
+                  className="absolute inset-x-[16.15%] top-[19.35%] bottom-[35.9%] z-0 overflow-hidden rounded-[0.35rem] sm:rounded-[0.55rem] lg:rounded-[0.7rem]"
                   style={{
                     backgroundColor: theme.colors.inkSoft,
                     boxShadow: theme.shadows.screen,
@@ -115,8 +117,6 @@ const HomePage = () => {
                   style={{ filter: `drop-shadow(${theme.shadows.laptop})` }}
                 />
               </div>
-
-              
             </div>
           </div>
         </div>
