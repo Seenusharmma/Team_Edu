@@ -20,11 +20,12 @@ const HomePage = () => {
           <div
             className="absolute inset-0"
             style={{
-              backgroundImage:
-                "linear-gradient(rgba(246, 239, 230, 0.72), rgba(246, 239, 230, 0.82)), url('/background.jpg')",
+              
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
               backgroundSize: "cover",
+              filter: "blur(5px)",
+              transform: "scale(1.03)",
             }}
           />
           <div
@@ -41,15 +42,15 @@ const HomePage = () => {
           <div className="grid w-full items-center gap-10 sm:gap-14 lg:grid-cols-[1.05fr_0.95fr]">
             <div className="mx-auto max-w-2xl text-center lg:mx-0 lg:text-left">
               <h1
-                className="mx-auto max-w-[12ch] text-4xl leading-[0.98] font-normal tracking-[-0.04em] text-balance sm:text-5xl lg:mx-0 lg:max-w-xl lg:text-8xl"
+                className="mx-auto max-w-[12ch] text-3xl leading-[0.98] font-normal tracking-[-0.04em] text-balance sm:text-4xl lg:mx-0 lg:max-w-xl lg:text-6xl"
                 style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
               >
-                Learn Faster. Think Smarter. Do Less.
+                Siksha Ai Powerd Education Platform
               </h1>
 
               <p
                 className="mx-auto mt-6 max-w-xl text-base leading-7 sm:mt-8 sm:text-lg sm:leading-8 lg:mx-0 lg:text-xl"
-                style={{ color: theme.colors.textSecondary }}
+                style={{ color: "#000000" }}
               >
                 AI-powered study system that reduces effort, saves time, and
                 helps you master concepts faster.
