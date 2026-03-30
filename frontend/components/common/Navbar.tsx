@@ -78,7 +78,7 @@ const Navbar = () => {
                   boxShadow: theme.shadows.button,
                 }}
               >
-                Book a demo
+                Contact Us
               </a>
             </div>
 
@@ -160,7 +160,7 @@ const Navbar = () => {
                     boxShadow: theme.shadows.button,
                   }}
                 >
-                  Book a demo
+                  Contact Us
                 </a>
               </div>
             </div>

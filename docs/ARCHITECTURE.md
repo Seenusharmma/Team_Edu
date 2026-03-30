@@ -84,18 +84,28 @@ export default function UserPage({ params }: { params: { id: string } }) {
 ### Directory Structure
 
 ```
-components/
-├── common/           # Shared across entire application
-│   ├── Navbar.tsx    # Global navigation
-│   ├── Footer.tsx    # Global footer
-│   └── Button.tsx    # Reusable button
-├── homeUI/           # Home page specific
-│   └── HomePage.tsx
-├── features/         # Feature section components
-│   ├── FeatureCard.tsx
-│   └── FeatureGrid.tsx
-└── pricing/          # Pricing section components
-    └── PricingCard.tsx
+frontend/
+├── app/                    # Next.js App Router
+│   ├── layout.tsx         # Root layout
+│   └── page.tsx           # Home page
+├── components/
+│   ├── common/            # Shared across entire application
+│   │   ├── Navbar.tsx    # Global navigation
+│   │   ├── Footer.tsx    # Global footer
+│   │   ├── About.tsx     # About section component
+│   │   └── FoundersTestimonials.tsx  # Testimonials component
+│   └── homeUI/            # Home page specific
+│       ├── HomePage.tsx  # Main home page
+│       ├── About.tsx     # About section
+│       ├── TrustedBySchools.tsx  # Trusted by schools section
+│       └── CountUpStats.tsx      # Statistics counter section
+├── lib/
+│   └── theme.ts          # Centralized theme configuration
+└── public/                # Static assets
+    ├── about.jpg          # About section image
+    ├── about1.png         # Alternative about image
+    ├── hero-merged.mp4   # Hero video
+    └── laptop.png         # Hero laptop image
 ```
 
 ### Component Naming Conventions
@@ -158,6 +168,17 @@ export const theme = {
     inkSoft: "#201913",
     inkOverlay: "rgba(28, 20, 15, 0.08)",
     buttonHover: "#35271f",
+    chocolate: "#2d1f1a",      // Dark chocolate background
+    chocolateDark: "#1a1210",  // Darker chocolate
+  },
+  dark: {
+    background: "#0a0f1c",
+    backgroundSecondary: "#111827",
+    textPrimary: "#f8fafc",
+    textSecondary: "#94a3b8",
+    textMuted: "#64748b",
+    accent: "#8b5cf6",
+    // ... more dark theme colors
   },
   gradients: {
     heroBackground:
@@ -297,7 +318,12 @@ Current client components:
 | Component | Reason |
 |-----------|--------|
 | `Navbar.tsx` | Uses `useState` for mobile menu toggle |
+| `Footer.tsx` | Uses `useState` for email form, GSAP animations |
 | `HomePage.tsx` | Client-side video rendering |
+| `About.tsx` | Client-side component |
+| `FoundersTestimonials.tsx` | Uses client-side images |
+| `TrustedBySchools.tsx` | Client-side component |
+| `CountUpStats.tsx` | Client-side animations |
 
 ### Component Type Examples
 

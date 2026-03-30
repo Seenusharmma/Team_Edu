@@ -1,10 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import Navbar from "@/components/common/Navbar";
 import TrustedBySchools from "@/components/homeUI/TrustedBySchools";
 import CountUpStats from "@/components/homeUI/CountUpStats";
 import { theme } from "@/lib/theme";
+import About from "./About";
 
 const HomePage = () => {
   return (
@@ -16,7 +16,7 @@ const HomePage = () => {
       }}
     >
       <section className="relative isolate">
-        <Navbar />
+        
 
         <div className="absolute inset-0 -z-10">
           <div
@@ -130,6 +130,8 @@ const HomePage = () => {
       <TrustedBySchools />
 
       <CountUpStats />
+
+      <About/>
     </main>
   );
 };
