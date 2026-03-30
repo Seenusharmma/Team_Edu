@@ -180,4 +180,4 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 
 - **[Architecture](ARCHITECTURE.md)** - Detailed system design and patterns
 - **[Contribution Guide](CONTRIBUTION.md)** - Development workflow and standards
-- **[Deployment Guide](DEPLOYMENT.md)** - Deployment procedures and hosting
+

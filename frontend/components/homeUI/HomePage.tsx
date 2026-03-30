@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import Navbar from "@/components/common/Navbar";
+import TrustedBySchools from "@/components/homeUI/TrustedBySchools";
+import CountUpStats from "@/components/homeUI/CountUpStats";
 import { theme } from "@/lib/theme";
 
 const HomePage = () => {
@@ -45,7 +47,7 @@ const HomePage = () => {
                 className="mx-auto max-w-[12ch] text-3xl leading-[0.98] font-normal tracking-[-0.04em] text-balance sm:text-4xl lg:mx-0 lg:max-w-xl lg:text-6xl"
                 style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
               >
-                Siksha Ai Powerd Education Platform
+                Siksha - AI Power Tool Making Organization.
               </h1>
 
               <p
@@ -65,15 +67,17 @@ const HomePage = () => {
                     color: theme.colors.white,
                   }}
                 >
-                  Request a demo
+                  View how it works.
                 </button>
 
-                <span
-                  className="text-center text-xs font-medium tracking-[0.16em] uppercase sm:text-left sm:text-sm sm:tracking-[0.18em]"
-                  style={{ color: theme.colors.textMuted }}
+                <button
+                  type="button"
+                  className="w-full rounded-full px-8 py-4 text-base font-semibold transition sm:w-auto hover:bg-teal-200 outline-gray-500 outline-solid"
+                 
                 >
-                  View How It Works
-                </span>
+                  What we do next
+                </button>
+
               </div>
             </div>
 
@@ -122,6 +126,10 @@ const HomePage = () => {
           </div>
         </div>
       </section>
+
+      <TrustedBySchools />
+
+      <CountUpStats />
     </main>
   );
 };
