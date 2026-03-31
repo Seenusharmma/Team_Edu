@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import TrustedBySchools from "@/components/homeUI/TrustedBySchools";
-import CountUpStats from "@/components/homeUI/CountUpStats";
+import CountUpStats from "@/components/home/CountUpStats";
+import TrustedBySchools from "@/components/home/TrustedBySchools";
 import { theme } from "@/lib/theme";
 import About from "./About";
 
@@ -47,7 +47,7 @@ const HomePage = () => {
                 className="mx-auto max-w-[12ch] text-3xl leading-[0.98] font-normal tracking-[-0.04em] text-balance sm:text-4xl lg:mx-0 lg:max-w-xl lg:text-6xl"
                 style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
               >
-                Siksha - AI Power Tool Making Organization.
+                Siksha - AI Powered Tool Making Organization.
               </h1>
 
               <p

@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import gsap from "gsap";
+import { useState } from "react";
 import { theme } from "@/lib/theme";
 
 const footerLinks = {
@@ -12,7 +11,7 @@ const footerLinks = {
   ],
   company: [
     { label: "About Us", href: "#about" },
-    { label: "Contact", href: "#contact" },
+    { label: "Contact", href: "/contact" },
   ],
   legal: [
     { label: "Privacy Policy", href: "#privacy" },
@@ -51,30 +50,9 @@ const socialLinks = [
 ];
 
 const Footer = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
   const [email, setEmail] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { colors } = theme;
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        ".footer-animate",
-        { opacity: 0, y: 30 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          stagger: 0.08,
-          ease: "power2.out",
-        }
-      );
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -92,12 +70,9 @@ const Footer = () => {
   };
 
   return (
-    <footer
-      ref={containerRef as React.RefObject<HTMLElement>}
-      style={{ backgroundColor: colors.pageBackground }}
-    >
+    <footer style={{ backgroundColor: colors.pageBackground }}>
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="footer-animate mb-16 text-center">
+        <div className="mb-16 text-center">
           <h2 
             className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl"
             style={{ color: "#000000" }}
@@ -150,12 +125,12 @@ const Footer = () => {
         </div>
 
         <div 
-          className="footer-animate mb-12 h-px w-full"
+          className="mb-12 h-px w-full"
           style={{ backgroundColor: colors.inkOverlay }}
         />
 
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4 lg:grid-cols-5">
-          <div className="footer-animate col-span-2">
+          <div className="col-span-2">
             <div className="mb-4 flex items-center gap-3">
               <div 
                 className="flex h-10 w-10 items-center justify-center rounded-xl text-lg font-bold"
@@ -193,7 +168,7 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="footer-animate">
+          <div>
             <h3 
               className="mb-4 text-sm font-semibold uppercase tracking-wider"
               style={{ color: "#000000" }}
@@ -215,7 +190,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="footer-animate">
+          <div>
             <h3 
               className="mb-4 text-sm font-semibold uppercase tracking-wider"
               style={{ color: "#000000" }}
@@ -237,7 +212,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="footer-animate">
+          <div>
             <h3 
               className="mb-4 text-sm font-semibold uppercase tracking-wider"
               style={{ color: "#000000" }}
@@ -261,7 +236,7 @@ const Footer = () => {
         </div>
 
         <div 
-          className="footer-animate mt-12 flex flex-col items-center justify-between gap-4 border-t pt-8 md:flex-row"
+          className="mt-12 flex flex-col items-center justify-between gap-4 border-t pt-8 md:flex-row"
           style={{ borderColor: colors.inkOverlay }}
         >
           <p className="text-sm" style={{ color: "#000000" }}>

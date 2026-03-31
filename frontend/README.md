@@ -102,13 +102,18 @@ npm run start
 frontend/
 ├── app/                          # Next.js App Router
 │   ├── globals.css               # Global styles (Tailwind imports)
-│   ├── layout.tsx               # Root layout component
+│   ├── layout.tsx                # Root layout component
+│   ├── contact/
+│   │   └── page.tsx              # Contact route (/contact)
 │   └── page.tsx                  # Home page route (/)
 ├── components/                   # React components
-│   ├── common/                   # Shared components
-│   │   └── Navbar.tsx          # Global navigation header
-│   └── homeUI/                   # Home page components
-│       └── HomePage.tsx         # Landing page component
+│   ├── layout/                   # Shared app shell components
+│   │   ├── AppLayout.tsx         # Shared page shell
+│   │   ├── BarbaProvider.tsx     # Page transition provider
+│   │   ├── Footer.tsx            # Global footer
+│   │   └── Navbar.tsx            # Global navigation header
+│   └── home/                     # Home page feature components
+│       └── HomePage.tsx          # Landing page component
 ├── lib/                          # Utility libraries
 │   └── theme.ts                 # Theme configuration constants
 ├── public/                       # Static assets
@@ -137,11 +142,11 @@ The project uses path aliases for cleaner imports:
 
 ```typescript
 // Use this pattern
-import Navbar from "@/components/common/Navbar";
+import Navbar from "@/components/layout/Navbar";
 import { theme } from "@/lib/theme";
 
 // Instead of relative paths
-import Navbar from "../../components/common/Navbar";
+import Navbar from "@/components/layout/Navbar";
 ```
 
 ---
@@ -180,4 +185,3 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 
 - **[Architecture](ARCHITECTURE.md)** - Detailed system design and patterns
 - **[Contribution Guide](CONTRIBUTION.md)** - Development workflow and standards
-

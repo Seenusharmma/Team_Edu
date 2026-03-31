@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { theme } from "@/lib/theme";
 
 const navItems = [
@@ -25,7 +26,7 @@ const Navbar = () => {
           }}
         >
           <div className="flex items-center justify-between gap-4">
-            <a href="#" className="flex min-w-0 items-center gap-3">
+            <Link href="/" className="flex min-w-0 items-center gap-3">
               <div
                 className="flex h-10 w-10 items-center justify-center rounded-full text-sm font-semibold sm:h-11 sm:w-11"
                 style={{
@@ -45,7 +46,7 @@ const Navbar = () => {
                 </p>
                 
               </div>
-            </a>
+            </Link>
 
             <nav className="hidden items-center gap-1 lg:flex">
               {navItems.map((item) => (
@@ -70,7 +71,7 @@ const Navbar = () => {
               </a>
 
               <a
-                href="#demo"
+                href="/contact"
                 className="rounded-full px-5 py-3 text-sm font-semibold transition-transform duration-200 hover:-translate-y-0.5"
                 style={{
                   backgroundColor: theme.colors.textPrimary,
@@ -151,7 +152,7 @@ const Navbar = () => {
                 </a>
 
                 <a
-                  href="#demo"
+                  href="/contact"
                   onClick={() => setIsOpen(false)}
                   className="rounded-2xl px-4 py-3 text-center text-sm font-semibold"
                   style={{
