@@ -3,17 +3,29 @@
 ## Table of Contents
 
 1. [Overview](#1-overview)
-2. [Routing Architecture](#2-routing-architecture)
-3. [Component Architecture](#3-component-architecture)
-4. [Theming System](#4-theming-system)
-5. [Styling Approach](#5-styling-approach)
-6. [Client vs Server Components](#6-client-vs-server-components)
+2. [Project Structure](#2-project-structure)
+3. [Routing Architecture](#3-routing-architecture)
+4. [Component Architecture](#4-component-architecture)
+5. [Theming System](#5-theming-system)
+6. [Styling Approach](#6-styling-approach)
+7. [Client vs Server Components](#7-client-vs-server-components)
+8. [Development Commands](#8-development-commands)
 
 ---
 
 ## 1. Overview
 
-The Siksha frontend follows the Next.js App Router architecture with a component-based design. The application is structured to be modular, scalable, and maintainable.
+The Siksha frontend is an AI-powered education platform built with **Next.js 16** using the App Router architecture. The application follows a component-based design pattern with centralized theming.
+
+### Tech Stack
+
+| Technology | Purpose |
+|------------|---------|
+| Next.js 16 | React framework with App Router |
+| React 19 | UI library |
+| TypeScript | Type safety |
+| Tailwind CSS v4 | Utility-first styling |
+| Next/Link | Client-side navigation |
 
 ### Design Principles
 
@@ -21,24 +33,75 @@ The Siksha frontend follows the Next.js App Router architecture with a component
 - **Centralized Theming**: Consistent styling through theme constants
 - **Type Safety**: Full TypeScript with strict mode enabled
 - **Responsive Design**: Mobile-first approach with Tailwind CSS
+- **Standard Navigation**: Uses Next.js Link component (no page transitions)
 
 ---
 
-## 2. Routing Architecture
+## 2. Project Structure
 
-The project uses **Next.js App Router** (file-based routing).
+```
+siksha/
+├── docs/                    # Project documentation
+│   ├── ARCHITECTURE.md      # This file
+│   ├── CONTRIBUTION.md      # Contribution guidelines
+│   └── changes.txt          # Changelog
+├── frontend/                # Next.js application
+│   ├── app/                # App Router pages
+│   │   ├── layout.tsx      # Root layout (Navbar + Footer)
+│   │   ├── page.tsx        # Home page
+│   │   ├── globals.css     # Global styles
+│   │   └── contact/        # Contact page route
+│   │       └── page.tsx    # Contact page
+│   ├── components/          # React components
+│   │   ├── home/           # Home page components
+│   │   │   ├── HomePage.tsx
+│   │   │   ├── About.tsx
+│   │   │   ├── CountUpStats.tsx
+│   │   │   └── TrustedBySchools.tsx
+│   │   └── layout/         # Layout components
+│   │       ├── Navbar.tsx
+│   │       └── Footer.tsx
+│   ├── lib/                # Utilities
+│   │   └── theme.ts        # Centralized theme configuration
+│   ├── public/             # Static assets
+│   │   ├── hero-merged.mp4
+│   │   └── laptop.png
+│   ├── package.json
+│   └── tsconfig.json
+└── README.md                # Main project README
+```
+
+### Directory Purpose
+
+| Directory | Purpose |
+|-----------|---------|
+| `app/` | Next.js App Router - page routes and layouts |
+| `components/` | Reusable React components |
+| `components/home/` | Components specific to the home page |
+| `components/layout/` | Layout components (Navbar, Footer) |
+| `lib/` | Utility functions and configuration |
+| `public/` | Static assets (images, videos) |
+| `docs/` | Project documentation |
+
+---
+
+## 3. Routing Architecture
+
+The project uses **Next.js App Router** with file-based routing.
 
 ### Route Structure
 
 ```
 app/
-├── layout.tsx    → Root layout (wraps all pages)
-└── page.tsx      → "/" route (Home page)
+├── layout.tsx          # Root layout → "/" + all pages
+├── page.tsx            # "/" → Home page
+└── contact/
+    └── page.tsx        # "/contact" → Contact page
 ```
 
 ### Adding New Routes
 
-Create new files in the `app/` directory:
+Create new directories and pages in the `app/` directory:
 
 ```typescript
 // app/about/page.tsx → "/about" route
@@ -46,104 +109,96 @@ export default function About() {
   return <h1>About Us</h1>;
 }
 
-// app/dashboard/page.tsx → "/dashboard" route
-export default function Dashboard() {
-  return <h1>Dashboard</h1>;
+// app/pricing/page.tsx → "/pricing" route
+export default function Pricing() {
+  return <h1>Pricing</h1>;
 }
 ```
 
-### Route Groups
+### Navigation
 
-Use route groups for organization without affecting URLs:
-
-```
-app/
-├── (marketing)/
-│   ├── about/page.tsx     → "/about"
-│   ├── pricing/page.tsx   → "/pricing"
-│   └── layout.tsx         # Marketing layout
-└── (app)/
-    ├── dashboard/page.tsx → "/dashboard"
-    └── settings/page.tsx  → "/settings"
-    └── layout.tsx         # App layout
-```
-
-### Dynamic Routes
+All internal links use Next.js `<Link />` component:
 
 ```typescript
-// app/users/[id]/page.tsx → "/users/:id"
-export default function UserPage({ params }: { params: { id: string } }) {
-  return <h1>User: {params.id}</h1>;
-}
+import Link from "next/link";
+
+<Link href="/" className="...">Home</Link>
+<Link href="/contact" className="...">Contact Us</Link>
 ```
 
 ---
 
-## 3. Component Architecture
+## 4. Component Architecture
 
-### Directory Structure
+### Component Categories
 
-```
-frontend/
-├── app/                    # Next.js App Router
-│   ├── layout.tsx         # Root layout
-│   └── page.tsx           # Home page
-├── components/
-│   ├── common/            # Shared across entire application
-│   │   ├── Navbar.tsx    # Global navigation
-│   │   ├── Footer.tsx    # Global footer
-│   │   ├── About.tsx     # About section component
-│   │   └── FoundersTestimonials.tsx  # Testimonials component
-│   └── homeUI/            # Home page specific
-│       ├── HomePage.tsx  # Main home page
-│       ├── About.tsx     # About section
-│       ├── TrustedBySchools.tsx  # Trusted by schools section
-│       └── CountUpStats.tsx      # Statistics counter section
-├── lib/
-│   └── theme.ts          # Centralized theme configuration
-└── public/                # Static assets
-    ├── about.jpg          # About section image
-    ├── about1.png         # Alternative about image
-    ├── hero-merged.mp4   # Hero video
-    └── laptop.png         # Hero laptop image
-```
+| Category | Location | Description |
+|----------|----------|-------------|
+| Layout | `components/layout/` | Navbar, Footer - appear on all pages |
+| Home | `components/home/` | Home page specific sections |
+| Pages | `app/*/page.tsx` | Full page components |
 
 ### Component Naming Conventions
 
 | Type | Convention | Example |
 |------|------------|---------|
-| Component Files | PascalCase | `Navbar.tsx`, `FeatureCard.tsx` |
-| Directory Names | camelCase | `homeUI/`, `pricing/` |
+| Component Files | PascalCase | `Navbar.tsx`, `HomePage.tsx` |
+| Directory Names | PascalCase | `components/home/`, `app/contact/` |
+| Page Files | PascalCase | `page.tsx` |
 
-### Component Structure
+### Component Structure Example
 
 ```typescript
-// components/common/Navbar.tsx
+// components/layout/Navbar.tsx
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { theme } from "@/lib/theme";
 
-interface NavbarProps {
-  // Define props here
-}
-
-const Navbar = ({ prop1, prop2 }: NavbarProps) => {
+const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav>
-      {/* Component content */}
-    </nav>
+    <header>
+      <nav>
+        <Link href="/">Logo</Link>
+        {/* Navigation items */}
+      </nav>
+    </header>
   );
 };
 
 export default Navbar;
 ```
 
+### Root Layout Structure
+
+All pages are wrapped with Navbar and Footer via the root layout:
+
+```typescript
+// app/layout.tsx
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
+
+export default function RootLayout({ children }) {
+  return (
+    <html>
+      <body>
+        <div className="flex min-h-full flex-col">
+          <Navbar />
+          <div className="flex-1">{children}</div>
+          <Footer />
+        </div>
+      </body>
+    </html>
+  );
+}
+```
+
 ---
 
-## 4. Theming System
+## 5. Theming System
 
 The theme is centralized in `lib/theme.ts` for consistency across the application.
 
@@ -156,43 +211,18 @@ export const theme = {
     pageBackground: "#f6efe6",
     textPrimary: "#1c140f",
     textSecondary: "#4f4036",
-    textMuted: "#7b6556",
     accent: "#9d5f37",
-    accentSoft: "rgba(244, 201, 139, 0.35)",
-    accentWarm: "rgba(207, 141, 99, 0.25)",
     white: "#ffffff",
     whiteSoft: "rgba(255, 255, 255, 0.95)",
-    whiteOverlay: "rgba(255, 255, 255, 0.85)",
-    whiteGlass: "rgba(255, 255, 255, 0.35)",
     whiteBorder: "rgba(255, 255, 255, 0.6)",
-    inkSoft: "#201913",
-    inkOverlay: "rgba(28, 20, 15, 0.08)",
-    buttonHover: "#35271f",
-    chocolate: "#2d1f1a",      // Dark chocolate background
-    chocolateDark: "#1a1210",  // Darker chocolate
-  },
-  dark: {
-    background: "#0a0f1c",
-    backgroundSecondary: "#111827",
-    textPrimary: "#f8fafc",
-    textSecondary: "#94a3b8",
-    textMuted: "#64748b",
-    accent: "#8b5cf6",
-    // ... more dark theme colors
-  },
-  gradients: {
-    heroBackground:
-      "radial-gradient(circle at top left, rgba(255,255,255,0.95), rgba(246,239,230,0.9) 35%, rgba(228,210,189,0.88) 100%)",
+    // ... more colors
   },
   shadows: {
     nav: "0 18px 50px rgba(79,54,37,0.12)",
     button: "0 16px 32px rgba(28,20,15,0.18)",
     laptop: "0 30px 80px rgba(79,54,37,0.18)",
-    screen: "0 10px 35px rgba(0,0,0,0.22)",
   },
 } as const;
-
-export type AppTheme = typeof theme;
 ```
 
 ### Using Theme in Components
@@ -218,12 +248,12 @@ function MyComponent() {
 ### Adding New Theme Values
 
 1. Open `lib/theme.ts`
-2. Add new values to the appropriate section (colors, gradients, shadows)
-3. Use in components via `theme.colors.newValue`
+2. Add new values to the appropriate section (colors, shadows)
+3. Use in components via `theme.colors.newValue` or `theme.shadows.newValue`
 
 ---
 
-## 5. Styling Approach
+## 6. Styling Approach
 
 ### Tailwind CSS v4
 
@@ -245,7 +275,7 @@ The project uses Tailwind CSS v4 with PostCSS integration.
 </div>
 
 // Hover effects
-<button className="hover:-translate-y-0.5" />
+<button className="hover:-translate-y-1" />
 
 // Flexbox layouts
 <div className="flex items-center justify-between gap-4" />
@@ -260,47 +290,14 @@ The project uses Tailwind CSS v4 with PostCSS integration.
 | Large | `lg:` | 1024px+ |
 | Extra Large | `xl:` | 1280px+ |
 
-### Common Patterns
-
-#### Glass Morphism Effect
-
-```tsx
-<div
-  className="backdrop-blur-xl"
-  style={{
-    backgroundColor: theme.colors.whiteOverlay,
-    borderColor: theme.colors.whiteBorder,
-  }}
-/>
-```
-
-#### Gradient Backgrounds
-
-```tsx
-<div
-  style={{
-    background: theme.gradients.heroBackground,
-  }}
-/>
-```
-
-#### Responsive Typography
-
-```tsx
-<h1 className="text-3xl sm:text-4xl lg:text-6xl">
-  Title
-</h1>
-```
-
 ---
 
-## 6. Client vs Server Components
+## 7. Client vs Server Components
 
 ### When to Use Server Components (Default)
 
 - Static content rendering
 - Data fetching from databases
-- Access to backend resources
 - Keeping sensitive information on server
 
 ### When to Use Client Components
@@ -313,53 +310,54 @@ Add `"use client"` directive at the top of the file:
 import { useState } from "react";
 ```
 
-Current client components:
+### Current Client Components
 
 | Component | Reason |
 |-----------|--------|
 | `Navbar.tsx` | Uses `useState` for mobile menu toggle |
-| `Footer.tsx` | Uses `useState` for email form, GSAP animations |
-| `HomePage.tsx` | Client-side video rendering |
-| `About.tsx` | Client-side component |
-| `FoundersTestimonials.tsx` | Uses client-side images |
+| `Footer.tsx` | Uses `useState` for email subscription form |
+| `HomePage.tsx` | Contains video element with client-side interactivity |
+| `About.tsx` | Client-side animations |
+| `CountUpStats.tsx` | Uses `useState` for counter animation |
 | `TrustedBySchools.tsx` | Client-side component |
-| `CountUpStats.tsx` | Client-side animations |
+| `contact/page.tsx` | Uses `useState` for form handling |
 
-### Component Type Examples
+---
 
-#### Server Component (Default)
+## 8. Development Commands
 
-```typescript
-// app/about/page.tsx
-export default function About() {
-  // This runs on the server
-  return <h1>About Page</h1>;
-}
+```bash
+# Navigate to frontend directory
+cd frontend
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Start production server
+npm start
+
+# Run linting
+npm run lint
 ```
 
-#### Client Component
+### Code Quality
 
-```typescript
-// components/Counter.tsx
-"use client";
+Before committing or creating a PR, ensure:
 
-import { useState } from "react";
-
-export default function Counter() {
-  const [count, setCount] = useState(0);
-  
-  return (
-    <button onClick={() => setCount(count + 1)}>
-      Count: {count}
-    </button>
-  );
-}
-```
+1. `npm run lint` passes without errors
+2. `npm run build` completes successfully
+3. All TypeScript types are correct
 
 ---
 
 ## Navigation
 
-- **[Quick Start](README.md)** - Project setup and basics
+- **[Main README](../README.md)** - Project overview and setup
 - **[Contribution Guide](CONTRIBUTION.md)** - Development workflow and standards
-- **[Deployment Guide](DEPLOYMENT.md)** - Deployment procedures
+- **[Changelog](changes.txt)** - Recent changes and updates

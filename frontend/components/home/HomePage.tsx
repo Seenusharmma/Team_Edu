@@ -16,20 +16,7 @@ const HomePage = () => {
       }}
     >
       <section className="relative isolate">
-        
-
         <div className="absolute inset-0 -z-10">
-          <div
-            className="absolute inset-0"
-            style={{
-              
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-              backgroundSize: "cover",
-              filter: "blur(5px)",
-              transform: "scale(1.03)",
-            }}
-          />
           <div
             className="absolute -left-24 top-10 h-48 w-48 rounded-full blur-3xl sm:top-16 sm:h-72 sm:w-72"
             style={{ backgroundColor: theme.colors.accentSoft }}
@@ -44,40 +31,43 @@ const HomePage = () => {
           <div className="grid w-full items-center gap-10 sm:gap-14 lg:grid-cols-[1.05fr_0.95fr]">
             <div className="mx-auto max-w-2xl text-center lg:mx-0 lg:text-left">
               <h1
-                className="mx-auto max-w-[12ch] text-3xl leading-[0.98] font-normal tracking-[-0.04em] text-balance sm:text-4xl lg:mx-0 lg:max-w-xl lg:text-6xl"
-                style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
+                className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl"
+                style={{ color: theme.colors.textPrimary }}
               >
-                Siksha - AI Powered Tool Making Organization.
+                Accelerate Your Learning with{" "}
+                <span style={{ color: theme.colors.accent }}>AI Power</span>
               </h1>
 
               <p
                 className="mx-auto mt-6 max-w-xl text-base leading-7 sm:mt-8 sm:text-lg sm:leading-8 lg:mx-0 lg:text-xl"
-                style={{ color: "#000000" }}
+                style={{ color: theme.colors.textSecondary }}
               >
-                AI-powered study system that reduces effort, saves time, and
-                helps you master concepts faster.
+                Master concepts faster, save hours of study time, and achieve better results with our intelligent learning assistant that adapts to your unique needs.
               </p>
 
-              <div className="mt-8 flex flex-col items-stretch gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:items-center lg:justify-start">
-                <button
-                  type="button"
-                  className="w-full rounded-full px-8 py-4 text-base font-semibold transition sm:w-auto"
+              <div className="mt-8 flex flex-col items-stretch gap-4 sm:mt-10 sm:flex-row sm:flex-wrap sm:items-center lg:justify-start">
+                <a
+                  href="/contact"
+                  className="w-full rounded-2xl px-8 py-4 text-base font-semibold transition-all duration-200 hover:-translate-y-1 sm:w-auto text-center"
                   style={{
-                    backgroundColor: theme.colors.textPrimary,
+                    backgroundColor: theme.colors.accent,
                     color: theme.colors.white,
+                    boxShadow: theme.shadows.button,
                   }}
                 >
-                  View how it works.
-                </button>
+                  Get Started Free
+                </a>
 
-                <button
-                  type="button"
-                  className="w-full rounded-full px-8 py-4 text-base font-semibold transition sm:w-auto hover:bg-teal-200 outline-gray-500 outline-solid"
-                 
+                <a
+                  href="#how-it-works"
+                  className="w-full rounded-2xl border-2 px-8 py-4 text-base font-semibold transition-all duration-200 hover:-translate-y-1 sm:w-auto text-center"
+                  style={{
+                    borderColor: theme.colors.textPrimary,
+                    color: theme.colors.textPrimary,
+                  }}
                 >
-                  What we do next
-                </button>
-
+                  Watch Demo
+                </a>
               </div>
             </div>
 

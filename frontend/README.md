@@ -18,16 +18,17 @@
 | Property | Value |
 |----------|-------|
 | Project Name | Siksha Frontend |
-| Version | 0.1.0 |
+| Version | 0.2.0 |
 | Type | Private Next.js web application |
-| Status | Early Development |
+| Status | Active Development |
 
 ### Purpose
 
 - Landing page for AI-powered education platform
 - Showcase platform features with hero video
-- Navigation to product features, pricing, and reviews sections
-- Demo booking and sign-in functionality
+- Contact page with modern form design
+- Responsive, mobile-first design
+- Standard Next.js App Router navigation
 
 ---
 
@@ -41,8 +42,7 @@
 ### Installation
 
 ```bash
-# Clone the repository
-git clone <repository-url>
+# Navigate to frontend directory
 cd frontend
 
 # Install dependencies
@@ -78,7 +78,7 @@ npm run start
 |------------|---------|---------|
 | [Next.js](https://nextjs.org/) | 16.2.1 | React framework with App Router |
 | [React](https://react.dev/) | 19.2.4 | UI library |
-| [TypeScript](https://www.typescriptlang.org/) | 5.x | Type-safe JavaScript |
+| [TypeScript](https://www.typescriptlang.org/) | 20.x | Type-safe JavaScript |
 
 ### Styling & UI
 
@@ -102,29 +102,29 @@ npm run start
 frontend/
 ├── app/                          # Next.js App Router
 │   ├── globals.css               # Global styles (Tailwind imports)
-│   ├── layout.tsx                # Root layout component
-│   ├── contact/
-│   │   └── page.tsx              # Contact route (/contact)
-│   └── page.tsx                  # Home page route (/)
+│   ├── layout.tsx                # Root layout (Navbar + Footer)
+│   ├── page.tsx                  # Home page route (/)
+│   └── contact/
+│       └── page.tsx              # Contact route (/contact)
 ├── components/                   # React components
-│   ├── layout/                   # Shared app shell components
-│   │   ├── AppLayout.tsx         # Shared page shell
-│   │   ├── BarbaProvider.tsx     # Page transition provider
+│   ├── layout/                   # Shared layout components
 │   │   ├── Footer.tsx            # Global footer
 │   │   └── Navbar.tsx            # Global navigation header
 │   └── home/                     # Home page feature components
-│       └── HomePage.tsx          # Landing page component
+│       ├── HomePage.tsx          # Landing page component
+│       ├── About.tsx             # About section
+│       ├── CountUpStats.tsx      # Statistics counter section
+│       └── TrustedBySchools.tsx  # Trusted by schools section
 ├── lib/                          # Utility libraries
-│   └── theme.ts                 # Theme configuration constants
+│   └── theme.ts                  # Theme configuration constants
 ├── public/                       # Static assets
-│   ├── hero-merged.mp4          # Hero video
-│   ├── laptop.png               # Laptop image
-│   └── *.svg                   # SVG icons
+│   ├── hero-merged.mp4           # Hero video
+│   └── laptop.png                # Laptop image
 ├── package.json                  # Project configuration
 ├── tsconfig.json                 # TypeScript configuration
-├── next.config.ts               # Next.js configuration
-├── postcss.config.mjs          # PostCSS configuration
-└── eslint.config.mjs           # ESLint configuration
+├── next.config.ts                # Next.js configuration
+├── postcss.config.mjs            # PostCSS configuration
+└── eslint.config.mjs             # ESLint configuration
 ```
 
 ### Directory Responsibilities
@@ -146,7 +146,7 @@ import Navbar from "@/components/layout/Navbar";
 import { theme } from "@/lib/theme";
 
 // Instead of relative paths
-import Navbar from "@/components/layout/Navbar";
+import Navbar from "../../components/layout/Navbar";
 ```
 
 ---
@@ -181,7 +181,31 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 
 ---
 
+## Architecture Notes
+
+### Navigation
+
+The project uses standard Next.js App Router navigation via the `<Link />` component. No page transition libraries are used.
+
+### Theming
+
+All styling uses a centralized theme configuration in `lib/theme.ts`. Components reference theme values for:
+- Colors (backgrounds, text, accents)
+- Shadows (buttons, cards, navigation)
+- Gradients (backgrounds, effects)
+
+### Components
+
+All interactive components use the `"use client"` directive:
+- Navbar (mobile menu toggle)
+- Footer (email subscription form)
+- Contact page (form handling)
+- Home page sections (animations)
+
+---
+
 ## Navigation
 
-- **[Architecture](ARCHITECTURE.md)** - Detailed system design and patterns
-- **[Contribution Guide](CONTRIBUTION.md)** - Development workflow and standards
+- **[Architecture](../docs/ARCHITECTURE.md)** - Detailed system design and patterns
+- **[Contribution Guide](../docs/CONTRIBUTION.md)** - Development workflow and standards
+- **[Changelog](../docs/changes.txt)** - Recent changes and updates
