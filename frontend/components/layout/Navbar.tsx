@@ -1,7 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import { AnimatePresence, motion } from "framer-motion";
+import { Sparkles, Menu, X } from "lucide-react";
 import { theme } from "@/lib/theme";
 
 const navItems = [
@@ -13,24 +15,57 @@ const navItems = [
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setIsScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const navMotion = useMemo(
+    () => ({
+      hidden: { opacity: 0, y: -8 },
+      show: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.5, ease: [0.2, 0.8, 0.2, 1] },
+      },
+    }),
+    []
+  );
 
   return (
     <header className="absolute inset-x-0 top-0 z-30">
       <div className="mx-auto w-full max-w-7xl px-4 py-4 sm:px-8 sm:py-6 lg:px-12">
-        <div
-          className="rounded-[1.4rem] border px-3 py-3 backdrop-blur-xl sm:rounded-[1.75rem] sm:px-5"
+        <motion.div
+          variants={navMotion}
+          initial="hidden"
+          animate="show"
+          className="relative rounded-[1.4rem] p-[1px] sm:rounded-[1.75rem]"
           style={{
-            backgroundColor: theme.colors.whiteOverlay,
-            borderColor: theme.colors.whiteBorder,
-            boxShadow: theme.shadows.nav,
+            background: `linear-gradient(135deg, ${theme.colors.whiteGlass}, rgba(157,95,55,0.22))`,
           }}
         >
+          <div
+            className="rounded-[1.35rem] border px-3 py-3 backdrop-blur-xl sm:rounded-[1.7rem] sm:px-5"
+            style={{
+              backgroundColor: isScrolled
+                ? theme.colors.whiteSoft
+                : theme.colors.whiteOverlay,
+              borderColor: theme.colors.whiteBorder,
+              boxShadow: isScrolled
+                ? "0 16px 48px rgba(79,54,37,0.16)"
+                : theme.shadows.nav,
+            }}
+          >
           <div className="flex items-center justify-between gap-4">
             <Link href="/" className="flex min-w-0 items-center gap-3">
               <div
                 className="flex h-10 w-10 items-center justify-center rounded-full text-sm font-semibold sm:h-11 sm:w-11"
                 style={{
-                  backgroundColor: theme.colors.accent,
+                  background: `linear-gradient(135deg, ${theme.colors.accent}, ${theme.colors.chocolate})`,
                   color: theme.colors.white,
                 }}
               >
@@ -44,43 +79,66 @@ const Navbar = () => {
                 >
                   Siksha
                 </p>
-                
+                <p
+                  className="mt-1 hidden text-xs font-medium uppercase tracking-[0.2em] sm:block"
+                  style={{ color: theme.colors.textMuted }}
+                >
+                  Education with Tech & AI
+                </p>
               </div>
             </Link>
 
             <nav className="hidden items-center gap-1 lg:flex">
               {navItems.map((item) => (
-                <a
+                <motion.a
                   key={item.label}
                   href={item.href}
-                  className="rounded-full px-4 py-2 text-sm font-medium transition-colors duration-200"
+                  className="group relative rounded-full px-4 py-2 text-sm font-medium transition-colors duration-200"
                   style={{ color: theme.colors.textSecondary }}
+                  whileHover={{ y: -1 }}
+                  whileTap={{ scale: 0.98 }}
                 >
-                  {item.label}
-                </a>
+                  <span className="relative z-10">{item.label}</span>
+                  <span
+                    className="pointer-events-none absolute inset-0 rounded-full opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+                    style={{
+                      backgroundColor: theme.colors.accentSoft,
+                    }}
+                  />
+                </motion.a>
               ))}
             </nav>
 
             <div className="hidden items-center gap-3 md:flex">
-              <a
+              <motion.a
                 href="#signin"
                 className="text-sm font-medium"
                 style={{ color: theme.colors.textSecondary }}
+                whileHover={{ y: -1 }}
+                whileTap={{ scale: 0.98 }}
               >
                 Sign in
-              </a>
+              </motion.a>
 
-              <a
+              <motion.a
                 href="/contact"
-                className="rounded-full px-5 py-3 text-sm font-semibold transition-transform duration-200 hover:-translate-y-0.5"
+                className="group relative flex items-center gap-2 overflow-hidden rounded-full px-5 py-3 text-sm font-semibold"
                 style={{
-                  backgroundColor: theme.colors.textPrimary,
                   color: theme.colors.white,
-                  boxShadow: theme.shadows.button,
                 }}
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.98 }}
               >
+                <span
+                  className="absolute inset-0 -z-10"
+                  style={{
+                    background: `linear-gradient(135deg, ${theme.colors.textPrimary}, ${theme.colors.chocolate})`,
+                    boxShadow: theme.shadows.button,
+                  }}
+                />
+                <Sparkles className="h-4 w-4" aria-hidden="true" />
                 Contact Us
-              </a>
+              </motion.a>
             </div>
 
             <button
@@ -96,77 +154,75 @@ const Navbar = () => {
               }}
             >
               <span className="sr-only">Open menu</span>
-              <div className="flex flex-col gap-1.5">
-                <span
-                  className={`block h-0.5 w-5 rounded-full transition-transform duration-200 ${
-                    isOpen ? "translate-y-2 rotate-45" : ""
-                  }`}
-                  style={{ backgroundColor: theme.colors.textPrimary }}
-                />
-                <span
-                  className={`block h-0.5 w-5 rounded-full transition-opacity duration-200 ${
-                    isOpen ? "opacity-0" : ""
-                  }`}
-                  style={{ backgroundColor: theme.colors.textPrimary }}
-                />
-                <span
-                  className={`block h-0.5 w-5 rounded-full transition-transform duration-200 ${
-                    isOpen ? "-translate-y-2 -rotate-45" : ""
-                  }`}
-                  style={{ backgroundColor: theme.colors.textPrimary }}
-                />
-              </div>
+              {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
           </div>
 
-          {isOpen ? (
-            <div className="mt-4 border-t pt-4 md:hidden" style={{ borderColor: theme.colors.whiteBorder }}>
-              <nav className="flex flex-col gap-2">
-                {navItems.map((item) => (
-                  <a
-                    key={item.label}
-                    href={item.href}
+          <AnimatePresence>
+            {isOpen ? (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.28, ease: [0.2, 0.8, 0.2, 1] }}
+                className="mt-4 overflow-hidden border-t pt-4 md:hidden"
+                style={{ borderColor: theme.colors.whiteBorder }}
+              >
+                <nav className="flex flex-col gap-2">
+                  {navItems.map((item) => (
+                    <motion.a
+                      key={item.label}
+                      href={item.href}
+                      onClick={() => setIsOpen(false)}
+                      className="rounded-2xl px-4 py-3 text-sm font-medium"
+                      style={{
+                        backgroundColor: theme.colors.whiteSoft,
+                        color: theme.colors.textSecondary,
+                      }}
+                      whileHover={{ x: 6 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      {item.label}
+                    </motion.a>
+                  ))}
+                </nav>
+
+                <div className="mt-4 flex flex-col gap-2">
+                  <motion.a
+                    href="#signin"
                     onClick={() => setIsOpen(false)}
                     className="rounded-2xl px-4 py-3 text-sm font-medium"
                     style={{
                       backgroundColor: theme.colors.whiteSoft,
-                      color: theme.colors.textSecondary,
+                      color: theme.colors.textPrimary,
                     }}
+                    whileHover={{ x: 6 }}
+                    whileTap={{ scale: 0.98 }}
                   >
-                    {item.label}
-                  </a>
-                ))}
-              </nav>
+                    Sign in
+                  </motion.a>
 
-              <div className="mt-4 flex flex-col gap-2">
-                <a
-                  href="#signin"
-                  onClick={() => setIsOpen(false)}
-                  className="rounded-2xl px-4 py-3 text-sm font-medium"
-                  style={{
-                    backgroundColor: theme.colors.whiteSoft,
-                    color: theme.colors.textPrimary,
-                  }}
-                >
-                  Sign in
-                </a>
-
-                <a
-                  href="/contact"
-                  onClick={() => setIsOpen(false)}
-                  className="rounded-2xl px-4 py-3 text-center text-sm font-semibold"
-                  style={{
-                    backgroundColor: theme.colors.textPrimary,
-                    color: theme.colors.white,
-                    boxShadow: theme.shadows.button,
-                  }}
-                >
-                  Contact Us
-                </a>
-              </div>
-            </div>
-          ) : null}
+                  <motion.a
+                    href="/contact"
+                    onClick={() => setIsOpen(false)}
+                    className="flex items-center justify-center gap-2 rounded-2xl px-4 py-3 text-center text-sm font-semibold"
+                    style={{
+                      background: `linear-gradient(135deg, ${theme.colors.textPrimary}, ${theme.colors.chocolate})`,
+                      color: theme.colors.white,
+                      boxShadow: theme.shadows.button,
+                    }}
+                    whileHover={{ x: 6 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <Sparkles className="h-4 w-4" aria-hidden="true" />
+                    Contact Us
+                  </motion.a>
+                </div>
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
         </div>
+        </motion.div>
       </div>
     </header>
   );
