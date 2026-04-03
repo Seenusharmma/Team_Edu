@@ -1,182 +1,163 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import Image from "next/image";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion, Variants } from "framer-motion";
 import CountUpStats from "@/components/home/CountUpStats";
 import TrustedBySchools from "@/components/home/TrustedBySchools";
 import { theme } from "@/lib/theme";
 import About from "./About";
+import FeaturesSection from "./FeaturesSection";
+import HowItWorks from "./HowItWorks";
+import Testimonials from "./Testimonials";
+import CTASection from "./CTASection";
+import { transitionConfig } from "@/lib/animations/framer";
 
-gsap.registerPlugin(ScrollTrigger);
+const heroVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: transitionConfig },
+};
+
+const laptopVariants: Variants = {
+  hidden: { opacity: 0, scale: 0.95 },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] } },
+};
 
 const HomePage = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const heroRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-
-    const ctx = gsap.context(() => {
-      // Hero background parallax
-      gsap.to(".hero-bg-1", {
-        y: -150,
-        ease: "none",
-        scrollTrigger: {
-          trigger: heroRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: 0,
-        },
-      });
-
-      gsap.to(".hero-bg-2", {
-        y: 100,
-        ease: "none",
-        scrollTrigger: {
-          trigger: heroRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: 0,
-        },
-      });
-
-      // Hero content parallax with fade
-      gsap.to(".hero-content", {
-        y: -200,
-        opacity: 0,
-        ease: "none",
-        scrollTrigger: {
-          trigger: heroRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: 0,
-        },
-      });
-
-      // Animate elements with data-lag on scroll into view
-      const lagElements = document.querySelectorAll("[data-lag]");
-      lagElements.forEach((el) => {
-        const lag = parseFloat(el.getAttribute("data-lag") || "0");
-        
-        gsap.fromTo(el, 
-          { y: 60, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 1.2,
-            ease: "power3.out",
-            delay: lag,
-            scrollTrigger: {
-              trigger: el,
-              start: "top 90%",
-              toggleActions: "play none none reset",
-            },
-          }
-        );
-      });
-
-      // Animate elements with data-speed (parallax effect)
-      const speedElements = document.querySelectorAll("[data-speed]");
-      speedElements.forEach((el) => {
-        const speed = parseFloat(el.getAttribute("data-speed") || "0.5");
-        
-        gsap.to(el, {
-          y: (1 - speed) * 80,
-          ease: "none",
-          scrollTrigger: {
-            trigger: el,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 0,
-          },
-        });
-      });
-    }, containerRef);
-
-    // Refresh ScrollTrigger after a short delay
-    setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 100);
-
-    return () => ctx.revert();
-  }, []);
 
   return (
     <main
       ref={containerRef}
-      className="min-h-screen overflow-hidden"
-      style={{
-        backgroundColor: theme.colors.pageBackground,
-        color: theme.colors.textPrimary,
-      }}
+      className="relative"
+      style={{ backgroundColor: theme.colors.pageBackground }}
     >
-      <section ref={heroRef} className="relative isolate min-h-screen">
-        <div className="absolute inset-0 -z-10 overflow-hidden">
-          {/* Animated gradient orbs */}
-          <div
-            className="hero-bg-1 absolute -left-24 top-10 h-48 w-48 rounded-full blur-3xl sm:top-16 sm:h-72 sm:w-72 animate-pulse"
-            style={{ backgroundColor: theme.colors.accentSoft }}
+      <motion.section
+        className="relative min-h-screen flex items-center justify-center"
+      >
+        <div className="absolute inset-0 -z-10">
+          <motion.div
+            className="hero-bg-1 absolute -left-24 top-10 h-48 w-48 rounded-full sm:top-16 sm:h-72 sm:w-72"
+            style={{
+              backgroundColor: theme.colors.accentSoft,
+              filter: "blur(80px)",
+            }}
+            animate={{
+              y: [0, -20, 0],
+              scale: [1, 1.1, 1],
+            }}
+            transition={{
+              duration: 6,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
           />
-          <div
-            className="hero-bg-2 absolute bottom-0 right-0 h-56 w-56 rounded-full blur-3xl sm:h-80 sm:w-80"
-            style={{ backgroundColor: theme.colors.accentWarm }}
+          <motion.div
+            className="hero-bg-2 absolute bottom-0 right-0 h-56 w-56 rounded-full sm:h-80 sm:w-80"
+            style={{
+              backgroundColor: theme.colors.accentWarm,
+              filter: "blur(80px)",
+            }}
+            animate={{
+              y: [0, 15, 0],
+              scale: [1, 1.05, 1],
+            }}
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 0.5,
+            }}
           />
         </div>
 
-        <div className="hero-content mx-auto flex min-h-screen w-full max-w-7xl items-center px-4 pb-12 pt-28 sm:px-8 sm:pb-16 sm:pt-32 lg:px-12 lg:pt-36">
+        <motion.div
+          className="mx-auto flex w-full max-w-7xl items-center px-4 pb-12 pt-28 sm:px-8 sm:pb-16 sm:pt-32 lg:px-12 lg:pt-36"
+          variants={heroVariants}
+          initial="hidden"
+          animate="visible"
+        >
           <div className="grid w-full items-center gap-10 sm:gap-14 lg:grid-cols-[1.05fr_0.95fr]">
             <div className="mx-auto max-w-2xl text-center lg:mx-0 lg:text-left">
-              <h1
-                data-lag="0.05"
+              <motion.h1
+                variants={itemVariants}
                 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl"
                 style={{ color: theme.colors.textPrimary }}
               >
                 Accelerate Your Learning with{" "}
-                <span style={{ color: theme.colors.accent }}>AI Power</span>
-              </h1>
+                <span
+                  className="inline-block"
+                  style={{
+                    color: theme.colors.accent,
+                    textShadow: `0 0 60px ${theme.colors.accent}50`,
+                  }}
+                >
+                  AI Power
+                </span>
+              </motion.h1>
 
-              <p
-                data-lag="0.1"
-                className="mx-auto mt-6 max-w-xl text-base leading-7 sm:mt-8 sm:text-lg sm:leading-8 lg:mx-0 lg:text-xl"
+              <motion.p
+                variants={itemVariants}
+                className="mx-auto mt-6 max-w-xl text-base leading-relaxed sm:mt-8 sm:text-lg sm:leading-8 lg:mx-0 lg:text-xl"
                 style={{ color: theme.colors.textSecondary }}
               >
                 Master concepts faster, save hours of study time, and achieve better results with our intelligent learning assistant that adapts to your unique needs.
-              </p>
+              </motion.p>
 
-              <div
-                data-lag="0.2"
+              <motion.div
+                variants={itemVariants}
                 className="mt-8 flex flex-col items-stretch gap-4 sm:mt-10 sm:flex-row sm:flex-wrap sm:items-center lg:justify-start"
               >
-                <a
+                <motion.a
                   href="/contact"
-                  className="w-full rounded-2xl px-8 py-4 text-base font-semibold transition-all duration-200 hover:-translate-y-1 sm:w-auto text-center"
+                  className="group w-full rounded-2xl px-8 py-4 text-base font-semibold transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl sm:w-auto text-center"
                   style={{
                     backgroundColor: theme.colors.accent,
                     color: theme.colors.white,
-                    boxShadow: theme.shadows.button,
+                    boxShadow: `0 15px 50px ${theme.colors.accent}50`,
                   }}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                 >
-                  Get Started Free
-                </a>
+                  <span className="flex items-center justify-center gap-2">
+                    Get Started Free
+                    <svg className="h-5 w-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </span>
+                </motion.a>
 
-                <a
+                <motion.a
                   href="#how-it-works"
-                  className="w-full rounded-2xl border-2 px-8 py-4 text-base font-semibold transition-all duration-200 hover:-translate-y-1 sm:w-auto text-center"
+                  className="w-full rounded-2xl border-2 px-8 py-4 text-base font-semibold transition-all duration-300 hover:-translate-y-2 sm:w-auto text-center"
                   style={{
                     borderColor: theme.colors.textPrimary,
                     color: theme.colors.textPrimary,
                   }}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                 >
                   Watch Demo
-                </a>
-              </div>
+                </motion.a>
+              </motion.div>
             </div>
 
-            <div className="relative mx-auto w-full max-w-[40rem]">
+            <motion.div
+              variants={laptopVariants}
+              className="relative mx-auto w-full max-w-[40rem]"
+            >
               <div
-                data-lag="0.15"
                 className="absolute -left-8 top-10 hidden h-28 w-28 rounded-full border blur-sm lg:block"
                 style={{
                   borderColor: theme.colors.whiteBorder,
@@ -184,7 +165,6 @@ const HomePage = () => {
                 }}
               />
               <div
-                data-lag="0.2"
                 className="absolute -right-4 bottom-10 hidden h-24 w-24 rounded-[2rem] blur-2xl lg:block"
                 style={{ backgroundColor: theme.colors.inkOverlay }}
               />
@@ -194,7 +174,7 @@ const HomePage = () => {
                   className="absolute inset-x-[16.15%] top-[19.35%] bottom-[35.9%] z-0 overflow-hidden rounded-[0.35rem] sm:rounded-[0.55rem] lg:rounded-[0.7rem]"
                   style={{
                     backgroundColor: theme.colors.inkSoft,
-                    boxShadow: theme.shadows.screen,
+                    boxShadow: "0 25px 70px rgba(0,0,0,0.35)",
                   }}
                 >
                   <video
@@ -214,20 +194,69 @@ const HomePage = () => {
                   alt="Laptop showing the Siksha platform"
                   width={2500}
                   height={2500}
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   priority
-                  style={{ filter: `drop-shadow(${theme.shadows.laptop})` }}
+                  style={{
+                    filter: `drop-shadow(0 35px 70px rgba(79,54,37,0.3))`,
+                  }}
                 />
               </div>
-            </div>
+            </motion.div>
           </div>
-        </div>
-      </section>
+        </motion.div>
+
+        <motion.div
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1, duration: 0.6 }}
+        >
+          
+        </motion.div>
+      </motion.section>
 
       <TrustedBySchools />
-
+      <FeaturesSection />
+      <HowItWorks />
       <CountUpStats />
-
+      
       <About />
+      <Testimonials />
+      <CTASection />
+
+      <div
+        className="fixed left-0 right-0 top-0 z-[100] h-1 origin-left will-change-transform"
+        id="scroll-progress"
+        style={{
+          transform: "scaleX(0)",
+          transformOrigin: "left center",
+          background: `linear-gradient(90deg, ${theme.colors.accent}, ${theme.colors.accentWarm})`,
+        }}
+      />
+
+      <motion.div
+        className="fixed bottom-8 right-8 z-[100]"
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ delay: 1.5, type: "spring", stiffness: 260, damping: 20 }}
+      >
+        <motion.button
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="flex h-12 w-12 items-center justify-center rounded-full"
+          style={{
+            backgroundColor: theme.colors.accent,
+            color: theme.colors.white,
+            boxShadow: `0 8px 30px ${theme.colors.accent}50`,
+          }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          aria-label="Scroll to top"
+        >
+          <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+          </svg>
+        </motion.button>
+      </motion.div>
     </main>
   );
 };

@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, type Variants } from "framer-motion";
 import { Sparkles, Menu, X } from "lucide-react";
 import { theme } from "@/lib/theme";
 
@@ -12,6 +12,8 @@ const navItems = [
   { label: "Pricing", href: "#pricing" },
   { label: "Reviews", href: "#reviews" },
 ];
+
+const softEase = [0.2, 0.8, 0.2, 1] as const;
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,12 +27,12 @@ const Navbar = () => {
   }, []);
 
   const navMotion = useMemo(
-    () => ({
+    (): Variants => ({
       hidden: { opacity: 0, y: -8 },
       show: {
         opacity: 1,
         y: 0,
-        transition: { duration: 0.5, ease: [0.2, 0.8, 0.2, 1] },
+        transition: { duration: 0.5, ease: softEase },
       },
     }),
     []
@@ -164,7 +166,7 @@ const Navbar = () => {
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.28, ease: [0.2, 0.8, 0.2, 1] }}
+                transition={{ duration: 0.28, ease: softEase }}
                 className="mt-4 overflow-hidden border-t pt-4 md:hidden"
                 style={{ borderColor: theme.colors.whiteBorder }}
               >

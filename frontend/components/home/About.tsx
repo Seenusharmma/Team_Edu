@@ -101,6 +101,7 @@ export default function About() {
               width={600}
               height={700}
               className="w-full h-auto object-cover"
+              sizes="(max-width: 768px) 100vw, 50vw"
               priority
             />
           </motion.div>

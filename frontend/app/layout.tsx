@@ -11,13 +11,45 @@ const signikaNegative = Signika_Negative({
   preload: true,
 });
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: "Siksha",
+  applicationCategory: "EducationApplication",
+  operatingSystem: "Web",
+  description: "AI-powered education platform for personalized learning",
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "USD",
+  },
+  creator: {
+    "@type": "Organization",
+    name: "Siksha",
+    url: "https://siksha.ai",
+  },
+};
+
 export const metadata: Metadata = {
   title: "Siksha - AI Powered Education Platform",
   description: "Master concepts faster with AI-powered learning. Save hours of study time and achieve better results with personalized learning.",
   keywords: ["AI education", "learning platform", "study tool", "AI tutoring"],
+  authors: [{ name: "Siksha" }],
   openGraph: {
     title: "Siksha - AI Powered Education Platform",
     description: "Master concepts faster with AI-powered learning",
+    type: "website",
+    locale: "en_US",
+    url: "https://siksha.ai",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Siksha - AI Powered Education Platform",
+    description: "Master concepts faster with AI-powered learning",
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
@@ -28,10 +60,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full antialiased" suppressHydrationWarning>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className={`${signikaNegative.className} min-h-full`}>
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-black/80 focus:px-4 focus:py-2 focus:text-white focus:outline-none"
+        >
+          Skip to main content
+        </a>
         <LenisProvider>
           <Navbar />
-          <main className="flex-1">{children}</main>
+          <main id="main-content" className="flex-1">{children}</main>
           <Footer />
         </LenisProvider>
       </body>

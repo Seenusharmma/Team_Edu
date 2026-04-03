@@ -3,6 +3,8 @@
 import { ReactNode, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 
+const revealEase = [0.22, 1, 0.36, 1] as const;
+
 interface ScrollRevealProps {
   children: ReactNode;
   direction?: "up" | "down" | "left" | "right";
@@ -42,7 +44,7 @@ export default function ScrollReveal({
       transition={{
         duration,
         delay,
-        ease: [0.22, 1, 0.36, 1],
+        ease: revealEase,
       }}
     >
       {children}
