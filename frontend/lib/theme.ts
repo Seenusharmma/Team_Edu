@@ -17,6 +17,15 @@ export const theme = {
     buttonHover: "#35271f",
     chocolate: "#2d1f1a",
     chocolateDark: "#1a1210",
+    cardBackground: "#f0ebe1",
+  },
+  darkColors: {
+    pageBackground: "#0a0a0a",
+    textPrimary: "#f0ebe1",
+    textSecondary: "#888888",
+    accent: "#ff4d00",
+    accentGreen: "#00ff88",
+    cardBackground: "#111111",
   },
   dark: {
     background: "#0a0f1c",

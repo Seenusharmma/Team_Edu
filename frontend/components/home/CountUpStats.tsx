@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import { theme } from "@/lib/theme";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 
 interface Stat {
   value: number;
@@ -69,31 +71,40 @@ const CountUpStats = () => {
       <div className="absolute -bottom-20 -right-20 h-48 w-48 rounded-full opacity-40" style={{ background: `radial-gradient(circle, ${theme.colors.accentWarm} 0%, transparent 70%)`, filter: "blur(30px)" }} />
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center">
-          <div className="mb-4 flex items-center justify-center gap-3">
-            <div className="h-px w-12 bg-gradient-to-r from-transparent to-black/10 sm:w-20" />
-            <span className="text-xs font-medium uppercase tracking-widest" style={{ color: theme.colors.accent }}>Impact</span>
-            <div className="h-px w-12 bg-gradient-to-l from-transparent to-black/10 sm:w-20" />
+        <ScrollReveal>
+          <div className="text-center">
+            <div className="mb-4 flex items-center justify-center gap-3">
+              <div className="h-px w-12 bg-gradient-to-r from-transparent to-black/10 sm:w-20" />
+              <span className="text-xs font-medium uppercase tracking-widest" style={{ color: theme.colors.accent }}>Impact</span>
+              <div className="h-px w-12 bg-gradient-to-l from-transparent to-black/10 sm:w-20" />
+            </div>
+            <h2
+              className="text-2xl font-semibold tracking-[0.15em] uppercase sm:text-3xl lg:text-4xl"
+              style={{ letterSpacing: "0.15em", fontFamily: "Georgia, 'Times New Roman', serif", color: theme.colors.textPrimary }}
+            >
+              Our Impact in Numbers
+            </h2>
+            <p className="mx-auto mt-4 max-w-xl text-sm sm:text-base" style={{ color: theme.colors.textMuted }}>
+              Real results powered by AI & innovation
+            </p>
           </div>
-          <h2
-            className="text-2xl font-semibold tracking-[0.15em] uppercase sm:text-3xl lg:text-4xl"
-            style={{ letterSpacing: "0.15em", fontFamily: "Georgia, 'Times New Roman', serif", color: theme.colors.textPrimary }}
-          >
-            Our Impact in Numbers
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-sm sm:text-base" style={{ color: theme.colors.textMuted }}>
-            Real results powered by AI & innovation
-          </p>
-        </div>
+        </ScrollReveal>
 
         <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5">
           {stats.map((stat, index) => (
-            <StatCard
+            <motion.div
               key={index}
-              stat={stat}
-              index={index}
-              isVisible={isVisible}
-            />
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              <StatCard
+                stat={stat}
+                index={index}
+                isVisible={isVisible}
+              />
+            </motion.div>
           ))}
         </div>
 
@@ -131,21 +142,24 @@ const StatCard = ({ stat, index, isVisible }: StatCardProps) => {
     const increment = stat.value / steps;
     let current = 0;
 
-    const timer = setTimeout(() => {
-      const interval = setInterval(() => {
-        current += increment;
-        if (current >= stat.value) {
-          setCount(stat.value);
-          clearInterval(interval);
-        } else {
-          setCount(Math.floor(current));
-        }
-      }, stepDuration);
+    const interval = setInterval(() => {
+      current += increment;
+      if (current >= stat.value) {
+        setCount(stat.value);
+        clearInterval(interval);
+      } else {
+        setCount(Math.floor(current));
+      }
+    }, stepDuration);
 
-      return () => clearInterval(interval);
-    }, index * 150);
+    const timeout = setTimeout(() => {
+      clearInterval(interval);
+    }, duration + index * 150);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearInterval(interval);
+      clearTimeout(timeout);
+    };
   }, [isVisible, stat.value, index]);
 
   const formatNumber = (num: number): string => {

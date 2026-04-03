@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { theme } from "@/lib/theme";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 
 const schools = [
   { name: "Delhi Public School", image: "/logo/dps.jpeg" },
@@ -35,20 +36,22 @@ const TrustedBySchools = () => {
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMiI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMiIvPjwvZz48L2c+PC9zdmc+')] opacity-15" />
 
       <div className="relative z-10 mx-auto mb-12 max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-        <div className="mb-4 flex items-center justify-center gap-3">
-          <div className="h-px w-12 bg-gradient-to-r from-transparent to-white/30 sm:w-20" />
-          <span className="text-xs font-medium uppercase tracking-widest text-white/50">Partners</span>
-          <div className="h-px w-12 bg-gradient-to-l from-transparent to-white/30 sm:w-20" />
-        </div>
-        <h2
-          className="text-base font-semibold tracking-[0.2em] uppercase text-white/90 sm:text-lg lg:text-xl"
-          style={{ letterSpacing: "0.2em" }}
-        >
-          Trusted By Top Schools & Institutions
-        </h2>
-        <p className="mx-auto mt-3 max-w-xl text-sm text-white/50">
-          Join hundreds of educational institutions transforming learning experiences
-        </p>
+        <ScrollReveal>
+          <div className="mb-4 flex items-center justify-center gap-3">
+            <div className="h-px w-12 bg-gradient-to-r from-transparent to-white/30 sm:w-20" />
+            <span className="text-xs font-medium uppercase tracking-widest text-white/50">Partners</span>
+            <div className="h-px w-12 bg-gradient-to-l from-transparent to-white/30 sm:w-20" />
+          </div>
+          <h2
+            className="text-base font-semibold tracking-[0.2em] uppercase text-white/90 sm:text-lg lg:text-xl"
+            style={{ letterSpacing: "0.2em" }}
+          >
+            Trusted By Top Schools & Institutions
+          </h2>
+          <p className="mx-auto mt-3 max-w-xl text-sm text-white/50">
+            Join hundreds of educational institutions transforming learning experiences
+          </p>
+        </ScrollReveal>
       </div>
 
       <div className="group relative flex w-full overflow-hidden py-4">
