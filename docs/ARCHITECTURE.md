@@ -42,7 +42,8 @@ The Siksha frontend is an AI-powered education platform built with **Next.js 16*
 ```
 siksha/
 ├── docs/                    # Project documentation
-│   ├── ARCHITECTURE.md      # This file
+│   ├── ARCHITECTURE.md      # Frontend architecture
+│   ├── MOBILE_ARCHITECTURE.md # Mobile app architecture
 │   ├── CONTRIBUTION.md      # Contribution guidelines
 │   └── changes.txt          # Changelog
 ├── frontend/                # Next.js application
@@ -68,6 +69,17 @@ siksha/
 │   │   └── laptop.png
 │   ├── package.json
 │   └── tsconfig.json
+├── mobile/                  # React Native mobile app
+│   ├── src/
+│   │   ├── app/            # Expo Router pages
+│   │   │   ├── _layout.tsx
+│   │   │   └── (tabs)/     # Tab navigation
+│   │   ├── components/     # React Native components
+│   │   │   ├── home/       # Home page sections
+│   │   │   └── layout/     # Layout components
+│   │   ├── lib/            # Theme configuration
+│   │   └── data/           # Static data
+│   └── assets/             # Images, videos
 └── README.md                # Main project README
 ```
 
@@ -361,3 +373,4 @@ Before committing or creating a PR, ensure:
 - **[Main README](../README.md)** - Project overview and setup
 - **[Contribution Guide](CONTRIBUTION.md)** - Development workflow and standards
 - **[Changelog](changes.txt)** - Recent changes and updates
+- **[Mobile App Architecture](MOBILE_ARCHITECTURE.md)** - React Native mobile app documentation

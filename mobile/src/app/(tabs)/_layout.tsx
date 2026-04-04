@@ -1,18 +1,20 @@
 import { Tabs } from 'expo-router';
-import { Text } from 'react-native';
+import { View } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 import { theme } from '@/lib/theme';
 
-function TabIcon({ glyph, focused }: { glyph: string; focused: boolean }) {
+type IconName = 'home' | 'book-outline' | 'bar-chart' | 'person-outline';
+
+function TabIcon({ name, focused }: { name: string; focused: boolean }) {
   return (
-    <Text
-      style={{
-        fontSize: 18,
-        color: focused ? theme.colors.accent : theme.colors.textMuted,
-      }}
-    >
-      {glyph}
-    </Text>
+    <View className="items-center justify-center">
+      <Ionicons
+        name={name as any}
+        size={26}
+        color={focused ? theme.colors.accent : theme.colors.textMuted}
+      />
+    </View>
   );
 }
 
@@ -21,18 +23,26 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
+        tabBarShowLabel: true,
         tabBarActiveTintColor: theme.colors.accent,
         tabBarInactiveTintColor: theme.colors.textMuted,
         tabBarStyle: {
-          height: 68,
+          height: 70,
           paddingTop: 8,
           paddingBottom: 10,
-          backgroundColor: theme.colors.whiteSoft,
+          backgroundColor: theme.colors.white,
+          borderTopWidth: 1,
           borderTopColor: theme.colors.whiteBorder,
+          shadowColor: theme.colors.chocolate,
+          shadowOffset: { width: 0, height: -4 },
+          shadowOpacity: 0.08,
+          shadowRadius: 12,
+          elevation: 10,
         },
         tabBarLabelStyle: {
-          fontSize: 12,
+          fontSize: 11,
           fontWeight: '600',
+          marginTop: 4,
         },
       }}
     >
@@ -41,7 +51,7 @@ export default function TabLayout() {
         options={{
           title: 'Home',
           tabBarIcon: ({ focused }) => (
-            <TabIcon glyph="⌂" focused={focused} />
+            <TabIcon name={focused ? 'home' : 'home-outline'} focused={focused} />
           ),
         }}
       />
@@ -50,7 +60,7 @@ export default function TabLayout() {
         options={{
           title: 'Learn',
           tabBarIcon: ({ focused }) => (
-            <TabIcon glyph="◉" focused={focused} />
+            <TabIcon name={focused ? 'book' : 'book-outline'} focused={focused} />
           ),
         }}
       />
@@ -59,7 +69,7 @@ export default function TabLayout() {
         options={{
           title: 'Progress',
           tabBarIcon: ({ focused }) => (
-            <TabIcon glyph="▤" focused={focused} />
+            <TabIcon name={focused ? 'bar-chart' : 'bar-chart-outline'} focused={focused} />
           ),
         }}
       />
@@ -68,7 +78,7 @@ export default function TabLayout() {
         options={{
           title: 'Profile',
           tabBarIcon: ({ focused }) => (
-            <TabIcon glyph="○" focused={focused} />
+            <TabIcon name={focused ? 'person' : 'person-outline'} focused={focused} />
           ),
         }}
       />

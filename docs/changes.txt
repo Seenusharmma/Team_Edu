@@ -2,119 +2,156 @@
                               CHANGELOG
 ================================================================================
 
-DATE: 31 March 2026
+DATE: 4 April 2026
 ================================================================================
 
-MAJOR CHANGES THIS SESSION:
----------------------------
+MOBILE APP CHANGES:
+-------------------
 
+1. STICKY NAVBAR (HeroSection.tsx)
+   - Created separate Navbar component
+   - Fixed position at top using absolute positioning
+   - Modern glassmorphism design with rounded corners
+   - Logo with "S" icon and "Siksha" brand name
+   - Contact Us button navigates to /contact
+   - Animated entrance (fade + scale)
+   - z-50 to stay on top of content
+   - Safe area padding for notch devices
+
+2. FEATURES SECTION CAROUSEL
+   - Auto-scrolling carousel (6 second intervals)
+   - Manual swipe navigation with pan gesture
+   - Dot pagination with animated active state
+   - Same card design as TestimonialsSection
+   - Infinite scrolling behavior
+   - Smooth snap animations (600ms duration)
+   - Velocity-based swipe detection
+   - Cards use white background with border and shadow
+
+3. BOTTOM TAB BAR (_layout.tsx)
+   - Premium Ionicons from @expo/vector-icons
+   - Active/Inactive icon states (filled vs outline)
+   - Shadow and border styling
+   - 70px height with proper padding
+   - Modern glass-like appearance
+   - Icons: home, book, bar-chart, person
+
+4. CONTACT PAGE (contact.tsx)
+   - Full contact form with name, email, subject, message
+   - Modern input styling with rounded corners
+   - Send Message button with accent color
+   - Get in Touch section with contact info
+   - Keyboard avoiding behavior
+   - Back navigation button
+
+5. GESTURE HANDLER SETUP
+   - Added GestureHandlerRootView to root _layout.tsx
+   - Required for GestureDetector and pan gestures
+
+6. VIDEO PLAYER FIX
+   - Fixed allowsFullscreen deprecation
+   - Changed to fullscreenOptions={{ enable: false }}
+
+================================================================================
+
+PREVIOUS CHANGES:
+-----------------
+
+DATE: 31 March 2026
+--------------------
 1. REMOVED PAGE TRANSITION LIBRARIES
-   - Removed Barba.js (@barba/core) - page transitions library
-   - Removed GSAP - animation library
-   - Removed all GSAP imports from components
-   - Removed BarbaProvider wrappers
-   - Now using standard Next.js App Router navigation
+   - Removed Barba.js and GSAP
+   - Using standard Next.js App Router navigation
 
 2. SIMPLIFIED PROJECT STRUCTURE
-   - Removed components/layout/AppLayout.tsx (merged into app/layout.tsx)
-   - Removed components/layout/BarbaProvider.tsx
-   - Removed components/common/BarbaProvider.tsx
-   - Removed app/template.tsx
-   - Removed lib/barba.config.ts
-   - Removed types/barba.d.ts
+   - Removed AppLayout.tsx, BarbaProvider.tsx
+   - Merged functionality into root layout
 
-3. UPDATED ROOT LAYOUT
-   - Merged AppLayout functionality into app/layout.tsx
-   - Root layout now directly contains Navbar and Footer
-   - Cleaner, simpler architecture
-
-4. CONTACT PAGE REDESIGN
+3. CONTACT PAGE REDESIGN
    - Complete UI redesign with modern design
-   - Added floating label inputs
-   - Added subject field
-   - Two-column layout (contact info + form)
-   - Animated border on focus
-   - Gradient CTA button with hover effects
-   - Success state with animated checkmark
-   - Contact info cards (email, location, hours)
-   - Social media links section
+   - Floating label inputs
+   - Two-column layout
 
-5. NAVBAR IMPROVEMENTS
-   - Logo now links to "/" using Next.js Link component
-   - Fixed ESLint warning about anchor tags
+4. NAVBAR IMPROVEMENTS
    - Contact Us button links to /contact page
 
-6. HOME PAGE HERO SECTION
-   - Removed background image
-   - Updated headline: "Accelerate Your Learning with AI Power"
-   - New compelling subheading
-   - Two CTA buttons:
-     * "Get Started Free" → links to /contact (accent color)
-     * "Watch Demo" → links to #how-it-works (outlined)
-   - Both buttons have hover animations
-
-7. FOOTER IMPROVEMENTS
-   - Removed GSAP animations
-   - Contact link now points to /contact page
-   - Clean, static design
+5. HOME PAGE HERO SECTION
+   - New headline: "Accelerate Your Learning with AI Power"
+   - Two CTA buttons with hover animations
 
 ================================================================================
 
-TECHNICAL UPDATES:
-------------------
+FOLDER STRUCTURE:
+-----------------
 
-Package Changes:
-- @barba/core: UNINSTALLED
-- gsap: UNINSTALLED
-
-Code Quality:
-- All ESLint checks passing
-- TypeScript compilation successful
-- Production build passing
-
-================================================================================
-
-PREVIOUS CHANGES (29 March 2026):
-----------------------------------
-1. Updated hero headline to "Siksha - AI Powered, Tool Making Organization"
-2. Changed "Request a demo" to "View how it works"
-3. Changed "Book a demo" to "Contact us"
-4. Changed "What we do next" button label
-5. Added CountUpStats component
-6. Added TrustedClients component
-7. Created Footer section
-
-================================================================================
-
-FOLDER STRUCTURE (Current):
----------------------------
-
-siksha/
+SIKSHA/
 ├── docs/
-│   ├── ARCHITECTURE.md
+│   ├── ARCHITECTURE.md          # Frontend architecture
+│   ├── MOBILE_ARCHITECTURE.md   # Mobile app architecture (NEW)
 │   ├── CONTRIBUTION.md
 │   └── changes.txt
-├── frontend/
+│
+├── frontend/                     # Next.js web application
 │   ├── app/
-│   │   ├── layout.tsx          # Root layout with Navbar + Footer
-│   │   ├── page.tsx            # Home page
+│   │   ├── layout.tsx
+│   │   ├── page.tsx
 │   │   ├── globals.css
 │   │   └── contact/
-│   │       └── page.tsx        # Contact page
+│   │       └── page.tsx
 │   ├── components/
 │   │   ├── home/
-│   │   │   ├── HomePage.tsx
-│   │   │   ├── About.tsx
-│   │   │   ├── CountUpStats.tsx
-│   │   │   └── TrustedBySchools.tsx
 │   │   └── layout/
-│   │       ├── Navbar.tsx
-│   │       └── Footer.tsx
-│   ├── lib/
-│   │   └── theme.ts
-│   └── public/
-│       ├── hero-merged.mp4
-│       └── laptop.png
-└── README.md
+│   └── lib/
+│       └── theme.ts
+│
+└── mobile/                      # React Native mobile app (NEW)
+    ├── src/
+    │   ├── app/
+    │   │   ├── _layout.tsx          # Root layout with GestureHandlerRootView
+    │   │   └── (tabs)/
+    │   │       ├── _layout.tsx      # Tab navigation
+    │   │       ├── index.tsx        # Home screen
+    │   │       ├── learn.tsx
+    │   │       ├── progress.tsx
+    │   │       ├── profile.tsx
+    │   │       └── contact.tsx
+    │   ├── components/
+    │   │   ├── home/
+    │   │   │   ├── HeroSection.tsx       # Contains Navbar
+    │   │   │   ├── FeaturesSection.tsx   # Carousel
+    │   │   │   ├── AboutSection.tsx
+    │   │   │   ├── StatsSection.tsx
+    │   │   │   ├── TestimonialsSection.tsx
+    │   │   │   ├── TrustedSchoolsSection.tsx
+    │   │   │   ├── HowItWorksSection.tsx
+    │   │   │   ├── CTASection.tsx
+    │   │   │   └── SectionHeader.tsx
+    │   │   └── layout/
+    │   │       └── Footer.tsx
+    │   ├── lib/
+    │   │   └── theme.ts
+    │   └── data/
+    │       └── home.ts
+    └── assets/
+        └── home/
+            ├── laptop.png
+            └── hero-merged.mp4
+
+================================================================================
+
+TECHNICAL STACK:
+----------------
+
+MOBILE APP:
+- Expo SDK 54
+- React Native 0.81
+- TypeScript
+- NativeWind (Tailwind CSS)
+- React Native Reanimated
+- React Native Gesture Handler
+- Expo Router
+- Expo Video
+- Expo Linear Gradient
+- @expo/vector-icons
 
 ================================================================================

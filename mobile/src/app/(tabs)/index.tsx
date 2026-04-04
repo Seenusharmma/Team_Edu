@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { AboutSection } from '@/components/home/AboutSection';
 import { CTASection } from '@/components/home/CTASection';
 import { FeaturesSection } from '@/components/home/FeaturesSection';
-import { HeroSection } from '@/components/home/HeroSection';
+import { HeroSection, Navbar } from '@/components/home/HeroSection';
 import { HowItWorksSection } from '@/components/home/HowItWorksSection';
 import Footer from '@/components/layout/Footer';
 import { StatsSection } from '@/components/home/StatsSection';
@@ -21,6 +21,8 @@ export default function HomeScreen() {
       className="flex-1"
       style={{ backgroundColor: theme.colors.pageBackground }}
     >
+      <Navbar />
+      
       <ScrollView
         ref={scrollRef}
         className="flex-1"

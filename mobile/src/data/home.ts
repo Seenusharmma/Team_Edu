@@ -78,7 +78,6 @@ export const steps = [
 export const stats = [
   { value: 10000, suffix: '+', label: 'Students Helped' },
   { value: 500, suffix: '+', label: 'Schools Connected' },
-  { value: 1000000, suffix: '+', label: 'Study Hours Saved' },
   { value: 95, suffix: '%', label: 'Success Rate' },
   { value: 24, suffix: '/7', label: 'Support' },
 ];
