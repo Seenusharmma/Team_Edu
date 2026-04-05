@@ -1,34 +1,64 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import { theme } from "@/lib/theme";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
 export default function CTASection() {
   const { colors } = theme;
+  const sectionRef = useRef<HTMLElement>(null);
+  
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const bgOrb1Y = useTransform(scrollYProgress, [0, 1], [0, -80]);
+  const bgOrb2Y = useTransform(scrollYProgress, [0, 1], [0, 80]);
+  const contentY = useTransform(scrollYProgress, [0, 1], [30, -30]);
 
   return (
     <section
+      ref={sectionRef}
       className="relative overflow-hidden py-16 sm:py-20 lg:py-28"
       style={{ backgroundColor: colors.chocolate }}
     >
       {/* Background Effects */}
       <div className="absolute inset-0">
-        <div
+        <motion.div
           className="absolute -left-40 -top-40 h-80 w-80 rounded-full opacity-30"
-          style={{ background: `radial-gradient(circle, ${colors.accent} 0%, transparent 70%)`, filter: 'blur(60px)' }}
+          style={{ 
+            background: `radial-gradient(circle, ${colors.accent} 0%, transparent 70%)`, 
+            filter: 'blur(60px)',
+            y: bgOrb1Y,
+          }}
         />
-        <div
+        <motion.div
           className="absolute -bottom-40 -right-40 h-80 w-80 rounded-full opacity-30"
-          style={{ background: `radial-gradient(circle, ${colors.accentWarm} 0%, transparent 70%)`, filter: 'blur(60px)' }}
+          style={{ 
+            background: `radial-gradient(circle, ${colors.accentWarm} 0%, transparent 70%)`, 
+            filter: 'blur(60px)',
+            y: bgOrb2Y,
+          }}
         />
-        <div className="absolute inset-0 opacity-20" style={{ backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.1) 1px, transparent 0)`, backgroundSize: '32px 32px' }} />
+        <motion.div 
+          className="absolute inset-0 opacity-20" 
+          style={{ 
+            backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.1) 1px, transparent 0)`,
+            backgroundSize: '32px 32px',
+            y: useTransform(scrollYProgress, [0, 1], [20, -20]),
+          }} 
+        />
       </div>
 
-      <div className="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+      <motion.div 
+        className="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8"
+        style={{ y: contentY }}
+      >
         <ScrollReveal>
           <h2
-            className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl"
+            className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl font-heading"
             style={{ color: colors.white }}
           >
             Ready to Transform Your Learning Journey?
@@ -102,7 +132,7 @@ export default function CTASection() {
             </div>
           </div>
         </ScrollReveal>
-      </div>
+      </motion.div>
     </section>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import { theme } from "@/lib/theme";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
@@ -49,13 +50,30 @@ const steps = [
 
 export default function HowItWorks() {
   const { colors } = theme;
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const bgY = useTransform(scrollYProgress, [0, 1], [40, -40]);
+  const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
 
   return (
     <section
+      ref={sectionRef}
       className="relative py-16 sm:py-20 lg:py-28"
       style={{ backgroundColor: colors.pageBackground }}
     >
-      <div className="absolute inset-0 opacity-40" style={{ backgroundImage: `radial-gradient(circle at 1px 1px, rgba(0,0,0,0.08) 1px, transparent 0)`, backgroundSize: '24px 24px' }} />
+      <motion.div 
+        className="absolute inset-0 opacity-40" 
+        style={{ 
+          backgroundImage: `radial-gradient(circle at 1px 1px, rgba(0,0,0,0.08) 1px, transparent 0)`,
+          backgroundSize: '24px 24px',
+          y: bgY,
+          scale: bgScale,
+        }} 
+      />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <ScrollReveal>
@@ -68,7 +86,7 @@ export default function HowItWorks() {
               <div className="h-px w-12 bg-gradient-to-l from-transparent to-black/10 sm:w-20" />
             </div>
             <h2
-              className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl"
+              className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl font-heading"
               style={{ color: colors.textPrimary }}
             >
               Start Learning in 4 Simple Steps
@@ -105,7 +123,7 @@ export default function HowItWorks() {
                         {step.icon}
                       </div>
 
-                      <span className="block text-5xl font-bold opacity-10" style={{ color: colors.accent }}>
+                      <span className="block text-5xl font-bold" style={{ color: colors.white, textShadow: `0 2px 8px ${colors.accent}` }}>
                         {step.number}
                       </span>
 

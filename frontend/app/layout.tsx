@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Signika_Negative } from "next/font/google";
+import { Signika_Negative, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -9,6 +9,13 @@ const signikaNegative = Signika_Negative({
   subsets: ["latin"],
   display: "swap",
   preload: true,
+});
+
+const sourceSerif = Source_Serif_4({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "600", "700"],
+  variable: "--font-source-serif",
 });
 
 const jsonLd = {
@@ -66,7 +73,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${signikaNegative.className} min-h-full`}>
+      <body className={`${signikaNegative.className} ${sourceSerif.variable} min-h-full`}>
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-black/80 focus:px-4 focus:py-2 focus:text-white focus:outline-none"

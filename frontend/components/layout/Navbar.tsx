@@ -95,16 +95,16 @@ const Navbar = () => {
                 <motion.a
                   key={item.label}
                   href={item.href}
-                  className="group relative rounded-full px-4 py-2 text-sm font-medium transition-colors duration-200"
-                  style={{ color: theme.colors.textSecondary }}
-                  whileHover={{ y: -1 }}
-                  whileTap={{ scale: 0.98 }}
+                  className="group relative rounded-full px-4 py-2 text-sm font-medium transition-all duration-300"
+                  whileHover={{ y: -2, scale: 1.04 }}
+                  whileTap={{ scale: 0.96 }}
                 >
-                  <span className="relative z-10">{item.label}</span>
+                  <span className="relative z-10" style={{ color: theme.colors.textSecondary }}>{item.label}</span>
                   <span
-                    className="pointer-events-none absolute inset-0 rounded-full opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+                    className="pointer-events-none absolute inset-0 rounded-full opacity-0 transition-all duration-300 group-hover:opacity-100"
                     style={{
-                      backgroundColor: theme.colors.accentSoft,
+                      background: `linear-gradient(135deg, ${theme.colors.accentSoft} 0%, transparent 70%)`,
+                      boxShadow: `0 4px 16px ${theme.colors.accentSoft}`,
                     }}
                   />
                 </motion.a>
@@ -114,12 +114,18 @@ const Navbar = () => {
             <div className="hidden items-center gap-3 md:flex">
               <motion.a
                 href="#signin"
-                className="text-sm font-medium"
-                style={{ color: theme.colors.textSecondary }}
-                whileHover={{ y: -1 }}
-                whileTap={{ scale: 0.98 }}
+                className="group relative rounded-full px-4 py-2 text-sm font-medium transition-all duration-300"
+                whileHover={{ y: -2, scale: 1.04 }}
+                whileTap={{ scale: 0.96 }}
               >
-                Sign in
+                <span className="relative z-10" style={{ color: theme.colors.textSecondary }}>Sign in</span>
+                <span
+                  className="pointer-events-none absolute inset-0 rounded-full opacity-0 transition-all duration-300 group-hover:opacity-100"
+                  style={{
+                    background: `linear-gradient(135deg, ${theme.colors.accentSoft} 0%, transparent 70%)`,
+                    boxShadow: `0 4px 16px ${theme.colors.accentSoft}`,
+                  }}
+                />
               </motion.a>
 
               <motion.a

@@ -30,7 +30,7 @@ export default function About() {
           <div className="order-2 lg:order-1">
             <ScrollReveal>
               <h2 
-                className="text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl"
+                className="text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl font-heading"
                 style={{ color: colors.white }}
               >
                 About{" "}

@@ -1,6 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import { theme } from "@/lib/theme";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
@@ -18,18 +20,32 @@ const schools = [
 const duplicatedSchools = [...schools, ...schools];
 
 const TrustedBySchools = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const bgY = useTransform(scrollYProgress, [0, 1], [50, -50]);
+  const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
+  const gradientOpacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
+
   return (
     <section
+      ref={sectionRef}
       className="relative w-full overflow-hidden py-1 sm:py-1 lg:py-1"
       style={{
         background: `linear-gradient(135deg, ${theme.colors.inkSoft} 0%, #0d0705 50%, ${theme.colors.inkSoft} 100%)`,
       }}
     >
-      <div
+      <motion.div
         className="absolute inset-0"
         style={{
           background: `radial-gradient(ellipse at 20% 30%, rgba(157, 95, 55, 0.25) 0%, transparent 50%),
                        radial-gradient(ellipse at 80% 70%, rgba(157, 95, 55, 0.15) 0%, transparent 50%)`,
+          y: bgY,
+          scale: bgScale,
+          opacity: gradientOpacity,
         }}
       />
 

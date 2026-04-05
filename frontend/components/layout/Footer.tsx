@@ -74,7 +74,7 @@ const Footer = () => {
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="mb-16 text-center">
           <h2 
-            className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl"
+            className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl font-heading"
             style={{ color: "#000000" }}
           >
             Transform Your Learning with{" "}

@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import Image from "next/image";
-import { motion, Variants } from "framer-motion";
+import { motion, Variants, useScroll, useTransform } from "framer-motion";
 import CountUpStats from "@/components/home/CountUpStats";
 import TrustedBySchools from "@/components/home/TrustedBySchools";
 import { theme } from "@/lib/theme";
@@ -36,6 +36,21 @@ const laptopVariants: Variants = {
 
 const HomePage = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
+
+  const heroBg1Y = useTransform(scrollYProgress, [0, 1], [0, -150]);
+  const heroBg1Scale = useTransform(scrollYProgress, [0, 1], [1, 1.3]);
+  const heroBg1Opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 0.6, 0.3]);
+  
+  const heroBg2Y = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  const heroBg2Scale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
+  const heroBg2Opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 0.6, 0.3]);
+
+  const heroContentY = useTransform(scrollYProgress, [0, 1], [0, 50]);
+  const heroContentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0.3]);
 
   return (
     <main
@@ -44,7 +59,7 @@ const HomePage = () => {
       style={{ backgroundColor: theme.colors.pageBackground }}
     >
       <motion.section
-        className="relative min-h-screen flex items-center justify-center"
+        className="relative min-h-screen flex items-center justify-center overflow-hidden"
       >
         <div className="absolute inset-0 -z-10">
           <motion.div
@@ -52,9 +67,11 @@ const HomePage = () => {
             style={{
               backgroundColor: theme.colors.accentSoft,
               filter: "blur(80px)",
+              y: heroBg1Y,
+              scale: heroBg1Scale,
+              opacity: heroBg1Opacity,
             }}
             animate={{
-              y: [0, -20, 0],
               scale: [1, 1.1, 1],
             }}
             transition={{
@@ -68,9 +85,11 @@ const HomePage = () => {
             style={{
               backgroundColor: theme.colors.accentWarm,
               filter: "blur(80px)",
+              y: heroBg2Y,
+              scale: heroBg2Scale,
+              opacity: heroBg2Opacity,
             }}
             animate={{
-              y: [0, 15, 0],
               scale: [1, 1.05, 1],
             }}
             transition={{
@@ -87,12 +106,13 @@ const HomePage = () => {
           variants={heroVariants}
           initial="hidden"
           animate="visible"
+          style={{ y: heroContentY, opacity: heroContentOpacity }}
         >
           <div className="grid w-full items-center gap-10 sm:gap-14 lg:grid-cols-[1.05fr_0.95fr]">
             <div className="mx-auto max-w-2xl text-center lg:mx-0 lg:text-left">
               <motion.h1
                 variants={itemVariants}
-                className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl"
+                className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl font-heading"
                 style={{ color: theme.colors.textPrimary }}
               >
                 Accelerate Your Learning with{" "}
@@ -156,6 +176,10 @@ const HomePage = () => {
             <motion.div
               variants={laptopVariants}
               className="relative mx-auto w-full max-w-[40rem]"
+              style={{
+                y: useTransform(scrollYProgress, [0, 1], [0, -80]),
+                scale: useTransform(scrollYProgress, [0, 1], [1, 0.95]),
+              }}
             >
               <div
                 className="absolute -left-8 top-10 hidden h-28 w-28 rounded-full border blur-sm lg:block"

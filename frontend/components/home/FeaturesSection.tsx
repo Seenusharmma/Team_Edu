@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import { theme } from "@/lib/theme";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
@@ -63,13 +64,30 @@ const features = [
 
 export default function FeaturesSection() {
   const { colors } = theme;
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const bgY = useTransform(scrollYProgress, [0, 1], [30, -30]);
+  const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.05]);
 
   return (
     <section
+      ref={sectionRef}
       className="relative py-16 sm:py-20 lg:py-28"
       style={{ backgroundColor: colors.pageBackground }}
     >
-      <div className="absolute inset-0 opacity-30" style={{ backgroundImage: `radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0)`, backgroundSize: '40px 40px' }} />
+      <motion.div 
+        className="absolute inset-0 opacity-30" 
+        style={{ 
+          backgroundImage: `radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0)`,
+          backgroundSize: '40px 40px',
+          y: bgY,
+          scale: bgScale,
+        }} 
+      />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <ScrollReveal>
@@ -82,7 +100,7 @@ export default function FeaturesSection() {
               <div className="h-px w-12 bg-gradient-to-l from-transparent to-black/10 sm:w-20" />
             </div>
             <h2
-              className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl"
+              className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl font-heading"
               style={{ color: colors.textPrimary }}
             >
               Supercharge Your Learning

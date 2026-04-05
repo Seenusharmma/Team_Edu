@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { theme } from "@/lib/theme";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
@@ -24,6 +24,15 @@ const CountUpStats = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [hasAnimated, setHasAnimated] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const bgY1 = useTransform(scrollYProgress, [0, 1], [0, -50]);
+  const bgY2 = useTransform(scrollYProgress, [0, 1], [0, 50]);
+  const contentY = useTransform(scrollYProgress, [0, 1], [20, -20]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -51,26 +60,28 @@ const CountUpStats = () => {
         background: `linear-gradient(180deg, ${theme.colors.pageBackground} 0%, rgba(244, 230, 210, 0.95) 50%, ${theme.colors.pageBackground} 100%)`,
       }}
     >
-      <div
+      <motion.div
         className="absolute inset-0"
         style={{
           background: `radial-gradient(ellipse at 20% 30%, ${theme.colors.accentSoft} 0%, transparent 50%),
                        radial-gradient(ellipse at 80% 70%, ${theme.colors.accentWarm} 0%, transparent 50%)`,
+          y: bgY1,
         }}
       />
 
-      <div
+      <motion.div
         className="absolute inset-0 opacity-40"
         style={{
           backgroundImage: `radial-gradient(circle at 1px 1px, rgba(0,0,0,0.1) 1px, transparent 0)`,
           backgroundSize: "40px 40px",
+          y: bgY2,
         }}
       />
 
-      <div className="absolute -left-20 -top-20 h-48 w-48 rounded-full opacity-40" style={{ background: `radial-gradient(circle, ${theme.colors.accentSoft} 0%, transparent 70%)`, filter: "blur(30px)" }} />
-      <div className="absolute -bottom-20 -right-20 h-48 w-48 rounded-full opacity-40" style={{ background: `radial-gradient(circle, ${theme.colors.accentWarm} 0%, transparent 70%)`, filter: "blur(30px)" }} />
+      <motion.div className="absolute -left-20 -top-20 h-48 w-48 rounded-full opacity-40" style={{ background: `radial-gradient(circle, ${theme.colors.accentSoft} 0%, transparent 70%)`, filter: "blur(30px)", y: bgY1 }} />
+      <motion.div className="absolute -bottom-20 -right-20 h-48 w-48 rounded-full opacity-40" style={{ background: `radial-gradient(circle, ${theme.colors.accentWarm} 0%, transparent 70%)`, filter: "blur(30px)", y: bgY2 }} />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <motion.div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" style={{ y: contentY }}>
         <ScrollReveal>
           <div className="text-center">
             <div className="mb-4 flex items-center justify-center gap-3">
@@ -119,7 +130,7 @@ const CountUpStats = () => {
             <span className="text-xs uppercase tracking-wider">ISO 27001 Certified</span>
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };
