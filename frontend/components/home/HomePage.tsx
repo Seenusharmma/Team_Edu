@@ -53,51 +53,20 @@ const HomePage = () => {
   const heroContentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0.3]);
 
   return (
-    <main
-      ref={containerRef}
-      className="relative"
-      style={{ backgroundColor: theme.colors.pageBackground }}
-    >
+    <main ref={containerRef} className="relative">
       <motion.section
         className="relative min-h-screen flex items-center justify-center overflow-hidden"
       >
-        <div className="absolute inset-0 -z-10">
-          <motion.div
-            className="hero-bg-1 absolute -left-24 top-10 h-48 w-48 rounded-full sm:top-16 sm:h-72 sm:w-72"
-            style={{
-              backgroundColor: theme.colors.accentSoft,
-              filter: "blur(80px)",
-              y: heroBg1Y,
-              scale: heroBg1Scale,
-              opacity: heroBg1Opacity,
-            }}
-            animate={{
-              scale: [1, 1.1, 1],
-            }}
-            transition={{
-              duration: 6,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-          <motion.div
-            className="hero-bg-2 absolute bottom-0 right-0 h-56 w-56 rounded-full sm:h-80 sm:w-80"
-            style={{
-              backgroundColor: theme.colors.accentWarm,
-              filter: "blur(80px)",
-              y: heroBg2Y,
-              scale: heroBg2Scale,
-              opacity: heroBg2Opacity,
-            }}
-            animate={{
-              scale: [1, 1.05, 1],
-            }}
-            transition={{
-              duration: 5,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 0.5,
-            }}
+        <div className="absolute inset-0 z-[-20]">
+          <video
+            className="h-full w-full object-cover object-center"
+            src="/AI.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-hidden
           />
         </div>
 
