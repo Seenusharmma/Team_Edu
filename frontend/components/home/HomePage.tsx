@@ -60,7 +60,7 @@ const HomePage = () => {
         <div className="absolute inset-0 z-[-20]">
           <video
             className="h-full w-full object-cover object-center"
-            src="/AI.mp4"
+            src="/video/main.mp4"
             autoPlay
             muted
             loop
@@ -170,7 +170,7 @@ const HomePage = () => {
                     boxShadow: "0 25px 70px rgba(0,0,0,0.35)",
                   }}
                 >
-                  <video
+                  {/* <video
                     className="h-full w-full object-cover object-center"
                     src="/hero-merged.mp4"
                     autoPlay
@@ -178,10 +178,10 @@ const HomePage = () => {
                     loop
                     playsInline
                     preload="none"
-                  />
+                  /> */}
                 </div>
 
-                <Image
+                {/* <Image
                   className="relative z-10 h-auto w-full"
                   src="/laptop.png"
                   alt="Laptop showing the Siksha platform"
@@ -192,7 +192,7 @@ const HomePage = () => {
                   style={{
                     filter: `drop-shadow(0 35px 70px rgba(79,54,37,0.3))`,
                   }}
-                />
+                /> */}
               </div>
             </motion.div>
           </div>
