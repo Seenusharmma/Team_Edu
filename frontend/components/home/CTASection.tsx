@@ -22,12 +22,12 @@ export default function CTASection() {
     <section
       ref={sectionRef}
       className="relative overflow-hidden py-16 sm:py-20 lg:py-28"
-      style={{ backgroundColor: colors.chocolate }}
+      style={{ backgroundColor: theme.dark.background }}
     >
       {/* Background Effects */}
       <div className="absolute inset-0">
         <motion.div
-          className="absolute -left-40 -top-40 h-80 w-80 rounded-full opacity-30"
+          className="absolute -left-40 -top-40 h-80 w-80 rounded-full opacity-20"
           style={{ 
             background: `radial-gradient(circle, ${colors.accent} 0%, transparent 70%)`, 
             filter: 'blur(60px)',
@@ -35,17 +35,17 @@ export default function CTASection() {
           }}
         />
         <motion.div
-          className="absolute -bottom-40 -right-40 h-80 w-80 rounded-full opacity-30"
+          className="absolute -bottom-40 -right-40 h-80 w-80 rounded-full opacity-20"
           style={{ 
-            background: `radial-gradient(circle, ${colors.accentWarm} 0%, transparent 70%)`, 
+            background: `radial-gradient(circle, ${theme.dark.accentLight || colors.accent} 0%, transparent 70%)`, 
             filter: 'blur(60px)',
             y: bgOrb2Y,
           }}
         />
         <motion.div 
-          className="absolute inset-0 opacity-20" 
+          className="absolute inset-0 opacity-10" 
           style={{ 
-            backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.1) 1px, transparent 0)`,
+            backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0)`,
             backgroundSize: '32px 32px',
             y: useTransform(scrollYProgress, [0, 1], [20, -20]),
           }} 
@@ -56,7 +56,7 @@ export default function CTASection() {
         className="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8"
         style={{ y: contentY }}
       >
-        <ScrollReveal>
+        <ScrollReveal once={false}>
           <h2
             className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl font-heading"
             style={{ color: colors.white }}
@@ -65,10 +65,10 @@ export default function CTASection() {
           </h2>
         </ScrollReveal>
 
-        <ScrollReveal delay={0.1}>
+        <ScrollReveal delay={0.1} once={false}>
           <p
             className="mx-auto mt-6 max-w-2xl text-base sm:text-lg lg:text-xl"
-            style={{ color: colors.whiteOverlay }}
+            style={{ color: theme.dark.textSecondary }}
           >
             Join thousands of students and educators already using Siksha to achieve their learning goals. Start your free trial today.
           </p>
@@ -82,7 +82,7 @@ export default function CTASection() {
               style={{
                 backgroundColor: colors.accent,
                 color: colors.white,
-                boxShadow: `0 15px 40px rgba(196, 135, 90, 0.4)`,
+                boxShadow: theme.shadows.button,
               }}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -99,7 +99,7 @@ export default function CTASection() {
               href="#how-it-works"
               className="w-full sm:w-auto rounded-2xl border-2 px-8 py-4 text-base font-semibold transition-all duration-300 hover:-translate-y-1"
               style={{
-                borderColor: colors.whiteBorder,
+                borderColor: colors.whiteGlass,
                 color: colors.white,
               }}
               whileHover={{ scale: 1.02 }}
@@ -111,7 +111,7 @@ export default function CTASection() {
         </ScrollReveal>
 
         <ScrollReveal delay={0.3}>
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-6 text-sm" style={{ color: colors.whiteOverlay }}>
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-6 text-sm" style={{ color: theme.dark.textSecondary }}>
             <div className="flex items-center gap-2">
               <svg className="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />

@@ -51,6 +51,8 @@ const steps = [
 export default function HowItWorks() {
   const { colors } = theme;
   const sectionRef = useRef<HTMLElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
@@ -66,17 +68,18 @@ export default function HowItWorks() {
       style={{ backgroundColor: colors.pageBackground }}
     >
       <motion.div 
-        className="absolute inset-0 opacity-40" 
+        className="absolute inset-0 opacity-[0.03]" 
         style={{ 
-          backgroundImage: `radial-gradient(circle at 1px 1px, rgba(0,0,0,0.08) 1px, transparent 0)`,
+          backgroundImage: `radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)`,
           backgroundSize: '24px 24px',
           y: bgY,
           scale: bgScale,
+          color: colors.textPrimary,
         }} 
       />
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <ScrollReveal>
+      <div ref={containerRef} className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <ScrollReveal once={false}>
           <div className="text-center">
             <div className="mb-4 flex items-center justify-center gap-3">
               <div className="h-px w-12 bg-gradient-to-r from-transparent to-black/10 sm:w-20" />
@@ -98,24 +101,34 @@ export default function HowItWorks() {
         </ScrollReveal>
 
         <div className="mt-16 relative">
-          {/* Connecting Line - Desktop */}
           <div className="hidden lg:block absolute left-1/2 top-24 bottom-24 w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-black/10 to-transparent" />
 
           <div className="space-y-12 lg:space-y-0">
-            {steps.map((step, index) => (
-              <ScrollReveal key={index} delay={index * 0.15}>
+            {steps.map((step, index) => {
+              const isEven = index % 2 === 0;
+              const slideDirection = isEven ? -60 : 60;
+              
+              return (
                 <motion.div
+                  key={step.number}
+                  data-step={index}
                   className={`relative lg:flex lg:items-center lg:gap-8 ${
-                    index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"
+                    isEven ? "lg:flex-row" : "lg:flex-row-reverse"
                   }`}
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={{ opacity: 0, y: slideDirection }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ duration: 0.6, delay: index * 0.15 }}
+                  viewport={{ once: false, amount: 0.3 }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
                 >
-                  {/* Content */}
-                  <div className={`lg:flex-1 ${index % 2 === 0 ? "lg:text-right" : "lg:text-left"}`}>
-                    <div className="relative p-6 sm:p-8 rounded-2xl" style={{ backgroundColor: colors.white, border: `1px solid ${colors.whiteBorder}` }}>
+                  <div className={`lg:flex-1 ${isEven ? "lg:text-right" : "lg:text-left"}`}>
+                    <div 
+                      className="relative p-6 sm:p-8 rounded-2xl"
+                      style={{ 
+                        backgroundColor: colors.white, 
+                        border: `1px solid ${colors.whiteBorder}`,
+                        boxShadow: "0 4px 20px rgba(26, 31, 54, 0.06)",
+                      }}
+                    >
                       <div
                         className="absolute -top-4 left-1/2 -translate-x-1/2 lg:static lg:translate-x-0 lg:mb-4 inline-flex items-center justify-center h-16 w-16 rounded-2xl"
                         style={{ backgroundColor: colors.accent, color: colors.white }}
@@ -123,7 +136,10 @@ export default function HowItWorks() {
                         {step.icon}
                       </div>
 
-                      <span className="block text-5xl font-bold" style={{ color: colors.white, textShadow: `0 2px 8px ${colors.accent}` }}>
+                      <span 
+                        className="block text-5xl font-bold" 
+                        style={{ color: colors.accent, opacity: 0.15 }}
+                      >
                         {step.number}
                       </span>
 
@@ -140,16 +156,17 @@ export default function HowItWorks() {
                     </div>
                   </div>
 
-                  {/* Center Dot - Desktop */}
                   <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center justify-center">
-                    <div className="h-4 w-4 rounded-full border-4" style={{ borderColor: colors.accent, backgroundColor: colors.white }} />
+                    <div 
+                      className="h-4 w-4 rounded-full border-4" 
+                      style={{ borderColor: colors.accent, backgroundColor: colors.white }} 
+                    />
                   </div>
 
-                  {/* Spacer for alternating layout */}
                   <div className="lg:flex-1" />
                 </motion.div>
-              </ScrollReveal>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>

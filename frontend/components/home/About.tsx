@@ -20,15 +20,15 @@ export default function About() {
   return (
     <section 
       ref={containerRef}
-      className="relative py-16 sm:py-20 lg:py-28 rounded-t-4xl"
-      style={{ backgroundColor: colors.chocolate }}
+      className="relative py-16 sm:py-20 lg:py-28"
+      style={{ backgroundColor: theme.dark.backgroundSecondary }}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 items-center">
           
           {/* LEFT CONTENT */}
           <div className="order-2 lg:order-1">
-            <ScrollReveal>
+            <ScrollReveal once={false}>
               <h2 
                 className="text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl font-heading"
                 style={{ color: colors.white }}
@@ -51,7 +51,7 @@ export default function About() {
               <ScrollReveal delay={0.2}>
                 <p 
                   className="text-base leading-relaxed"
-                  style={{ color: colors.whiteOverlay }}
+                  style={{ color: theme.dark.textSecondary }}
                 >
                   Welcome to Siksha &ndash; where education meets innovation. We are dedicated to transforming the way people learn through cutting-edge artificial intelligence and personalized learning experiences.
                 </p>
@@ -60,7 +60,7 @@ export default function About() {
               <ScrollReveal delay={0.3}>
                 <p 
                   className="text-base leading-relaxed"
-                  style={{ color: colors.whiteOverlay }}
+                  style={{ color: theme.dark.textSecondary }}
                 >
                   Our mission is to make quality education accessible to everyone, everywhere. By harnessing the power of AI, we create customized learning paths that adapt to each student&apos;s unique needs, pace, and learning style.
                 </p>
@@ -69,7 +69,7 @@ export default function About() {
               <ScrollReveal delay={0.4}>
                 <p 
                   className="text-base leading-relaxed"
-                  style={{ color: colors.whiteOverlay }}
+                  style={{ color: theme.dark.textSecondary }}
                 >
                   Whether you&apos;re a student looking to excel in your studies, a professional seeking new skills, or an organization aiming to train your team, Siksha provides the tools and support you need to achieve your goals.
                 </p>
@@ -82,7 +82,7 @@ export default function About() {
                 style={{ 
                   backgroundColor: colors.accent, 
                   color: colors.white,
-                  boxShadow: "0 10px 30px rgba(157, 95, 55, 0.3)",
+                  boxShadow: theme.shadows.button,
                 }}
               >
                 Learn More About Us

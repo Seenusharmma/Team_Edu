@@ -82,7 +82,7 @@ const HomePage = () => {
               <motion.h1
                 variants={itemVariants}
                 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl font-heading"
-                style={{ color: theme.colors.textPrimary }}
+                style={{ color: theme.colors.white }}
               >
                 Accelerate Your Learning with{" "}
                 <span
@@ -99,7 +99,7 @@ const HomePage = () => {
               <motion.p
                 variants={itemVariants}
                 className="mx-auto mt-6 max-w-xl text-base leading-relaxed sm:mt-8 sm:text-lg sm:leading-8 lg:mx-0 lg:text-xl"
-                style={{ color: theme.colors.textSecondary }}
+                style={{ color: "rgba(255,255,255,0.9)" }}
               >
                 Master concepts faster, save hours of study time, and achieve better results with our intelligent learning assistant that adapts to your unique needs.
               </motion.p>
@@ -114,7 +114,6 @@ const HomePage = () => {
                   style={{
                     backgroundColor: theme.colors.accent,
                     color: theme.colors.white,
-                    boxShadow: `0 15px 50px ${theme.colors.accent}50`,
                   }}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
@@ -131,8 +130,9 @@ const HomePage = () => {
                   href="#how-it-works"
                   className="w-full rounded-2xl border-2 px-8 py-4 text-base font-semibold transition-all duration-300 hover:-translate-y-2 sm:w-auto text-center"
                   style={{
-                    borderColor: theme.colors.textPrimary,
-                    color: theme.colors.textPrimary,
+                    borderColor: theme.colors.white,
+                    backgroundColor: "rgba(255,255,255,0.15)",
+                    color: theme.colors.white,
                   }}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}

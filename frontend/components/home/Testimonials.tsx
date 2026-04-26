@@ -141,7 +141,7 @@ export default function Testimonials() {
       />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <ScrollReveal>
+        <ScrollReveal once={false}>
           <div className="text-center">
             <div className="mb-4 flex items-center justify-center gap-3">
               <div className="h-px w-12 bg-gradient-to-r from-transparent to-black/10 sm:w-20" />

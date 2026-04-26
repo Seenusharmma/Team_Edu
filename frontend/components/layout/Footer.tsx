@@ -70,22 +70,22 @@ const Footer = () => {
   };
 
   return (
-    <footer style={{ backgroundColor: colors.pageBackground }}>
+    <footer style={{ backgroundColor: colors.cardBackground }}>
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="mb-16 text-center">
           <h2 
             className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl font-heading"
-            style={{ color: "#000000" }}
+            style={{ color: colors.textPrimary }}
           >
             Transform Your Learning with{" "}
-            <span style={{ color: "#000000" }}>
+            <span style={{ color: colors.accent }}>
               AI
             </span>
           </h2>
           
           <p 
             className="mx-auto mb-8 max-w-xl text-base"
-            style={{ color: "#000000" }}
+            style={{ color: colors.textSecondary }}
           >
             An AI-powered study system that reduces effort, saves time, and helps you master concepts faster.
           </p>
@@ -100,7 +100,7 @@ const Footer = () => {
               style={{
                 borderColor: colors.whiteBorder,
                 backgroundColor: colors.white,
-                color: "#000000",
+                color: colors.textPrimary,
               }}
               required
             />
@@ -108,9 +108,9 @@ const Footer = () => {
               type="submit"
               className="rounded-2xl px-8 py-3 font-semibold transition-all duration-200 hover:-translate-y-0.5"
               style={{
-                backgroundColor: colors.textPrimary,
+                backgroundColor: colors.accent,
                 color: colors.white,
-                boxShadow: colors.buttonHover,
+                boxShadow: theme.shadows.button,
               }}
             >
               Get Started
@@ -135,7 +135,7 @@ const Footer = () => {
               <div 
                 className="flex h-10 w-10 items-center justify-center rounded-xl text-lg font-bold"
                 style={{
-                  backgroundColor: colors.accent,
+                  background: `linear-gradient(135deg, ${colors.accent}, ${colors.buttonHover})`,
                   color: colors.white,
                 }}
               >
@@ -145,7 +145,7 @@ const Footer = () => {
             </div>
             <p 
               className="mb-6 max-w-xs text-sm leading-relaxed"
-              style={{ color: "#000000" }}
+              style={{ color: colors.textSecondary }}
             >
               AI-powered study tool that reduces effort, saves time, and helps students and organizations master concepts faster.
             </p>
@@ -157,8 +157,8 @@ const Footer = () => {
                   className="flex h-10 w-10 items-center justify-center rounded-xl border transition-colors duration-200"
                   style={{
                     borderColor: colors.whiteBorder,
-                    backgroundColor: colors.whiteSoft,
-                    color: "#000000",
+                    backgroundColor: colors.white,
+                    color: colors.textSecondary,
                   }}
                   aria-label={social.name}
                 >
@@ -171,7 +171,7 @@ const Footer = () => {
           <div>
             <h3 
               className="mb-4 text-sm font-semibold uppercase tracking-wider"
-              style={{ color: "#000000" }}
+              style={{ color: colors.textPrimary }}
             >
               Product
             </h3>
@@ -181,7 +181,7 @@ const Footer = () => {
                   <a
                     href={link.href}
                     className="text-sm transition-colors duration-200 hover:underline"
-                    style={{ color: "#000000" }}
+                    style={{ color: colors.textSecondary }}
                   >
                     {link.label}
                   </a>
@@ -193,7 +193,7 @@ const Footer = () => {
           <div>
             <h3 
               className="mb-4 text-sm font-semibold uppercase tracking-wider"
-              style={{ color: "#000000" }}
+              style={{ color: colors.textPrimary }}
             >
               Company
             </h3>
@@ -203,7 +203,7 @@ const Footer = () => {
                   <a
                     href={link.href}
                     className="text-sm transition-colors duration-200 hover:underline"
-                    style={{ color: "#000000" }}
+                    style={{ color: colors.textSecondary }}
                   >
                     {link.label}
                   </a>
@@ -215,7 +215,7 @@ const Footer = () => {
           <div>
             <h3 
               className="mb-4 text-sm font-semibold uppercase tracking-wider"
-              style={{ color: "#000000" }}
+              style={{ color: colors.textPrimary }}
             >
               Legal
             </h3>
@@ -225,7 +225,7 @@ const Footer = () => {
                   <a
                     href={link.href}
                     className="text-sm transition-colors duration-200 hover:underline"
-                    style={{ color: "#000000" }}
+                    style={{ color: colors.textSecondary }}
                   >
                     {link.label}
                   </a>
@@ -239,19 +239,19 @@ const Footer = () => {
           className="mt-12 flex flex-col items-center justify-between gap-4 border-t pt-8 md:flex-row"
           style={{ borderColor: colors.inkOverlay }}
         >
-          <p className="text-sm" style={{ color: "#000000" }}>
-            &copy; {new Date().getFullYear()} Siksha. All rights reserved.
-          </p>
-          <button
-            onClick={scrollToTop}
-            className="flex h-10 w-10 items-center justify-center rounded-xl border transition-colors duration-200"
-            style={{
-              borderColor: colors.whiteBorder,
-              backgroundColor: colors.whiteSoft,
-              color: "#000000",
-            }}
-            aria-label="Scroll to top"
-          >
+<p className="text-sm" style={{ color: colors.textSecondary }}>
+             &copy; {new Date().getFullYear()} Siksha. All rights reserved.
+           </p>
+           <button
+             onClick={scrollToTop}
+             className="flex h-10 w-10 items-center justify-center rounded-xl border transition-colors duration-200"
+             style={{
+               borderColor: colors.whiteBorder,
+               backgroundColor: colors.white,
+               color: colors.textSecondary,
+             }}
+             aria-label="Scroll to top"
+           >
             <svg
               className="h-5 w-5"
               fill="none"

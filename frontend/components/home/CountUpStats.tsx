@@ -82,7 +82,7 @@ const CountUpStats = () => {
       <motion.div className="absolute -bottom-20 -right-20 h-48 w-48 rounded-full opacity-40" style={{ background: `radial-gradient(circle, ${theme.colors.accentWarm} 0%, transparent 70%)`, filter: "blur(30px)", y: bgY2 }} />
 
       <motion.div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" style={{ y: contentY }}>
-        <ScrollReveal>
+        <ScrollReveal once={false}>
           <div className="text-center">
             <div className="mb-4 flex items-center justify-center gap-3">
               <div className="h-px w-12 bg-gradient-to-r from-transparent to-black/10 sm:w-20" />

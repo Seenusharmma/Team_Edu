@@ -1,7 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --color-background: #111;
+  --color-background: #f8f9fc;
+  --color-foreground: #1a1f36;
 }
 
 html.lenis {
@@ -20,7 +21,7 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  color: #5a5a5a;
+  color: var(--color-foreground);
 }
 
 html.lenis,
@@ -185,7 +186,7 @@ html.lenis body select {
   font-size: 84px;
   font-weight: 400;
   line-height: 92.4px;
-  color: #16140f;
+  color: var(--color-foreground);
 }
 
 /* Section headings */
