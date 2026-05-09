@@ -13,6 +13,8 @@ const navItems = [
   { label: "Reviews", href: "#reviews" },
 ];
 
+const taglineWords = ["Education", "with", "Tech", "&", "AI"];
+
 const softEase = [0.2, 0.8, 0.2, 1] as const;
 
 const Navbar = () => {
@@ -24,6 +26,15 @@ const Navbar = () => {
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const [wordCount, setWordCount] = useState(1);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setWordCount((prev) => (prev < taglineWords.length ? prev + 1 : 1));
+    }, 900);
+    return () => clearInterval(interval);
   }, []);
 
   const navMotion = useMemo(
@@ -115,7 +126,7 @@ const Navbar = () => {
   };
 
   return (
-    <header className="absolute inset-x-0 top-0 z-30">
+    <header className="fixed inset-x-0 top-0 z-30">
       <div className="mx-auto w-full max-w-7xl px-4 py-4 sm:px-8 sm:py-6 lg:px-12">
         <motion.div
           variants={navMotion}
@@ -129,6 +140,7 @@ const Navbar = () => {
           <div
             className="rounded-[1.35rem] border px-3 py-2.5 backdrop-blur-xl sm:rounded-[1.7rem] sm:px-5 sm:py-5"
             style={{
+              transition: "background-color 0.5s cubic-bezier(0.2,0.8,0.2,1), box-shadow 0.5s cubic-bezier(0.2,0.8,0.2,1)",
               backgroundColor: isScrolled
                 ? "rgba(255,255,255,0.72)"
                 : "rgba(255,255,255,0.55)",
@@ -164,7 +176,16 @@ const Navbar = () => {
                   className="mt-1 hidden text-xs font-medium uppercase tracking-[0.2em] sm:block"
                   style={{ color: theme.colors.textMuted }}
                 >
-                  Education with Tech & AI
+                  {taglineWords.map((word, i) => (
+                    <motion.span
+                      key={i}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: i < wordCount ? 1 : 0 }}
+                      transition={{ duration: 0.35, ease: softEase }}
+                    >
+                      {word}{" "}
+                    </motion.span>
+                  ))}
                 </p>
               </div>
             </Link>

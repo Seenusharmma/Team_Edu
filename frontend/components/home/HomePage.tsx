@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
-import { motion, Variants, useScroll, useTransform } from "framer-motion";
+import { motion, AnimatePresence, Variants, useScroll, useTransform } from "framer-motion";
 import CountUpStats from "@/components/home/CountUpStats";
 import TrustedBySchools from "@/components/home/TrustedBySchools";
 import { theme } from "@/lib/theme";
@@ -34,6 +34,9 @@ const laptopVariants: Variants = {
   visible: { opacity: 1, scale: 1, transition: { duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] } },
 };
 
+const words = ["AI Power", "Tech"];
+const prefixText = "Accelerate Your Learning with ";
+
 const HomePage = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -51,6 +54,26 @@ const HomePage = () => {
 
   const heroContentY = useTransform(scrollYProgress, [0, 1], [0, 50]);
   const heroContentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0.3]);
+
+  const [wordIndex, setWordIndex] = useState(0);
+  const [letterCount, setLetterCount] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setWordIndex((prev) => (prev + 1) % words.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLetterCount((prev) => {
+        if (prev >= prefixText.length + 30) return 0;
+        return prev + 1;
+      });
+    }, 70);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <main ref={containerRef} className="relative">
@@ -70,6 +93,10 @@ const HomePage = () => {
           />
         </div>
 
+        <div className="absolute inset-0 z-[-10]" style={{
+          background: `linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.6) 100%)`
+        }} />
+
         <motion.div
           className="mx-auto flex w-full max-w-7xl items-center px-4 pb-12 pt-28 sm:px-8 sm:pb-16 sm:pt-32 lg:px-12 lg:pt-36"
           variants={heroVariants}
@@ -84,15 +111,26 @@ const HomePage = () => {
                 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl font-heading"
                 style={{ color: theme.colors.white }}
               >
-                Accelerate Your Learning with{" "}
+                {prefixText.slice(0, letterCount)}
                 <span
-                  className="inline-block"
+                  className="inline-block relative"
                   style={{
-                    color: theme.colors.accent,
-                    textShadow: `0 0 60px ${theme.colors.accent}50`,
+                    color: theme.colors.gold,
+                    textShadow: `0 0 40px ${theme.colors.gold}60, 0 0 80px ${theme.colors.gold}30`,
                   }}
                 >
-                  AI Power
+                  <AnimatePresence mode="wait">
+                    <motion.span
+                      key={words[wordIndex]}
+                      initial={{ opacity: 0, y: 15 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -15 }}
+                      transition={{ duration: 0.35, ease: [0.2, 0.8, 0.2, 1] }}
+                      className="inline-block"
+                    >
+                      {words[wordIndex]}
+                    </motion.span>
+                  </AnimatePresence>
                 </span>
               </motion.h1>
 

@@ -138,7 +138,7 @@ export default function HowItWorks() {
 
                       <span 
                         className="block text-5xl font-bold" 
-                        style={{ color: colors.accent, opacity: 0.15 }}
+                        style={{ color: colors.accent, opacity: 0.5 }}
                       >
                         {step.number}
                       </span>
