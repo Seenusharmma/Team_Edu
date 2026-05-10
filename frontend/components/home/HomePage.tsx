@@ -57,13 +57,15 @@ const HomePage = () => {
 
   const [wordIndex, setWordIndex] = useState(0);
   const [letterCount, setLetterCount] = useState(0);
+  const [showAnimatedText, setShowAnimatedText] = useState(false);
 
   useEffect(() => {
+    if (!showAnimatedText) return;
     const interval = setInterval(() => {
       setWordIndex((prev) => (prev + 1) % words.length);
     }, 3000);
     return () => clearInterval(interval);
-  }, []);
+  }, [showAnimatedText]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -71,9 +73,15 @@ const HomePage = () => {
         if (prev >= prefixText.length + 30) return 0;
         return prev + 1;
       });
-    }, 70);
+    }, 120);
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    if (letterCount >= prefixText.length) {
+      setShowAnimatedText(true);
+    }
+  }, [letterCount]);
 
   return (
     <main ref={containerRef} className="relative">
@@ -112,26 +120,28 @@ const HomePage = () => {
                 style={{ color: theme.colors.white }}
               >
                 {prefixText.slice(0, letterCount)}
-                <span
-                  className="inline-block relative"
-                  style={{
-                    color: theme.colors.gold,
-                    textShadow: `0 0 40px ${theme.colors.gold}60, 0 0 80px ${theme.colors.gold}30`,
-                  }}
-                >
-                  <AnimatePresence mode="wait">
-                    <motion.span
-                      key={words[wordIndex]}
-                      initial={{ opacity: 0, y: 15 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -15 }}
-                      transition={{ duration: 0.35, ease: [0.2, 0.8, 0.2, 1] }}
-                      className="inline-block"
-                    >
-                      {words[wordIndex]}
-                    </motion.span>
-                  </AnimatePresence>
-                </span>
+                {showAnimatedText && (
+                  <span
+                    className="inline-block relative"
+                    style={{
+                      color: theme.colors.gold,
+                      textShadow: `0 0 40px ${theme.colors.gold}60, 0 0 80px ${theme.colors.gold}30`,
+                    }}
+                  >
+                    <AnimatePresence mode="wait">
+                      <motion.span
+                        key={words[wordIndex]}
+                        initial={{ opacity: 0, y: 15 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -15 }}
+                        transition={{ duration: 0.35, ease: [0.2, 0.8, 0.2, 1] }}
+                        className="inline-block"
+                      >
+                        {words[wordIndex]}
+                      </motion.span>
+                    </AnimatePresence>
+                  </span>
+                )}
               </motion.h1>
 
               <motion.p
